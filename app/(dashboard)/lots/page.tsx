@@ -41,7 +41,7 @@ export default async function LotsPage() {
         </div>
         <Link
           href="/lots/new"
-          className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-4 py-2 transition-colors"
+          className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg px-4 py-2 transition-colors"
         >
           <Plus size={15} />
           Novo lote

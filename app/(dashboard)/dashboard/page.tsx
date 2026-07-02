@@ -56,7 +56,7 @@ export default async function DashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total em estoque" value={totalBoxes} sub="caixas" icon={Boxes} color="bg-blue-50 text-blue-600" />
+        <StatCard label="Total em estoque" value={totalBoxes} sub="caixas" icon={Boxes} color="bg-indigo-50 text-indigo-600" />
         <StatCard label="Produtos ativos" value={products.length} sub="cores/linhas" icon={Package2} color="bg-violet-50 text-violet-600" />
         <StatCard label="Lotes em estoque" value={totalLots} sub="lotes ativos" icon={Clock} color="bg-emerald-50 text-emerald-600" />
         <StatCard label="Alertas ativos" value={lowStockItems.length + expiring.length} sub="requerem atenção" icon={AlertTriangle} color={lowStockItems.length + expiring.length > 0 ? "bg-red-50 text-red-600" : "bg-slate-50 text-slate-400"} />

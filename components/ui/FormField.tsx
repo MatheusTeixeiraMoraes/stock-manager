@@ -19,5 +19,5 @@ export default function FormField({ label, optional, children, hint }: FormField
 }
 
 export function inputClass() {
-  return "w-full border border-zinc-300 rounded-lg px-3 py-2.5 text-sm text-zinc-900 bg-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition";
+  return "w-full border border-zinc-300 rounded-lg px-3 py-2.5 text-sm text-zinc-900 bg-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition";
 }

@@ -13,8 +13,8 @@ export default async function UsersPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-slate-900">Usuários</h2>
-          <p className="text-sm text-slate-500 mt-0.5">{users.length} usuário{users.length !== 1 ? "s" : ""} cadastrado{users.length !== 1 ? "s" : ""}</p>
+          <h2 className="text-xl font-bold text-slate-900">Usuários</h2>
+          <p className="text-sm text-slate-500 mt-1">{users.length} usuário{users.length !== 1 ? "s" : ""} cadastrado{users.length !== 1 ? "s" : ""}</p>
         </div>
         <a
           href="https://supabase.com/dashboard"
@@ -52,8 +52,8 @@ export default async function UsersPage() {
                 <tr key={u.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                        <span className="text-xs font-bold text-blue-600">
+                      <div className="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-bold text-indigo-600">
                           {u.full_name.slice(0, 2).toUpperCase()}
                         </span>
                       </div>
@@ -61,7 +61,7 @@ export default async function UsersPage() {
                     </div>
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${u.role === "admin" ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-600"}`}>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${u.role === "admin" ? "bg-indigo-50 text-indigo-700" : "bg-slate-100 text-slate-600"}`}>
                       {u.role === "admin" ? "Administrador" : "Operador"}
                     </span>
                   </td>

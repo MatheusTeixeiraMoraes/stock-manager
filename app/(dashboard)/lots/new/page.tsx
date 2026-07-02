@@ -79,7 +79,7 @@ export default async function NewLotPage() {
           </FormField>
 
           <div className="pt-1 flex gap-3">
-            <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl py-2.5 text-sm transition-colors">
+            <button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl py-2.5 text-sm transition-colors">
               Salvar lote
             </button>
             <Link href="/lots" className="flex-1 text-center border border-zinc-300 hover:bg-zinc-50 text-zinc-700 font-medium rounded-xl py-2.5 text-sm transition-colors">

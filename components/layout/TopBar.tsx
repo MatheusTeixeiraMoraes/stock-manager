@@ -27,20 +27,22 @@ export default function TopBar({ title, userName }: TopBarProps) {
     .toUpperCase();
 
   return (
-    <header className="h-14 flex items-center justify-between px-6 bg-white border-b border-slate-200 flex-shrink-0">
-      <span className="text-sm font-semibold text-slate-900">{title}</span>
+    <header className="h-16 flex items-center justify-between px-8 bg-white border-b border-zinc-200 flex-shrink-0">
+      <span className="text-sm font-semibold text-slate-500 tracking-wide uppercase text-[11px]">
+        {title}
+      </span>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shadow-sm">
             <span className="text-xs font-bold text-white">{initials}</span>
           </div>
           <span className="text-sm font-medium text-slate-700">{userName}</span>
         </div>
-        <div className="w-px h-5 bg-slate-200" />
+        <div className="w-px h-5 bg-zinc-200" />
         <button
           onClick={handleLogout}
-          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-red-600 transition-colors"
+          className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-red-500 transition-colors"
         >
           <LogOut size={14} />
           Sair

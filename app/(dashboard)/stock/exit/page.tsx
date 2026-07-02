@@ -121,7 +121,7 @@ export default async function StockExitPage() {
           <div className="pt-1">
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowUpCircle size={15} />
               Registrar saída
