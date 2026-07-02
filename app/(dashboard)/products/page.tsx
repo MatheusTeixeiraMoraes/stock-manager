@@ -14,8 +14,8 @@ export default async function ProductsPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-slate-900">Produtos / Cores</h2>
-          <p className="text-sm text-slate-500 mt-0.5">{products.length} produto{products.length !== 1 ? "s" : ""} cadastrado{products.length !== 1 ? "s" : ""}</p>
+          <h2 className="text-xl font-bold text-slate-900">Produtos / Cores</h2>
+          <p className="text-sm text-slate-500 mt-1">{products.length} produto{products.length !== 1 ? "s" : ""} cadastrado{products.length !== 1 ? "s" : ""}</p>
         </div>
         <Link
           href="/products/new"
@@ -47,15 +47,15 @@ export default async function ProductsPage() {
             <tbody className="divide-y divide-slate-100">
               {products.map((p) => (
                 <tr key={p.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800">{p.name}</td>
-                  <td className="px-5 py-3.5 text-slate-500">{p.line}</td>
-                  <td className="px-5 py-3.5 text-right text-slate-500 tabular-nums">{Number(p.unit_weight).toFixed(4)}</td>
-                  <td className="px-5 py-3.5 text-center">
+                  <td className="px-5 py-4 font-medium text-slate-800">{p.name}</td>
+                  <td className="px-5 py-4 text-slate-500">{p.line}</td>
+                  <td className="px-5 py-4 text-right text-slate-500 tabular-nums">{Number(p.unit_weight).toFixed(4)}</td>
+                  <td className="px-5 py-4 text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${p.active ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
                       {p.active ? "Ativo" : "Inativo"}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-right">
+                  <td className="px-5 py-4 text-right">
                     <Link href={`/products/${p.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-blue-600 transition-colors">
                       <Pencil size={12} />
                       Editar

@@ -23,8 +23,8 @@ export default async function MovementsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-bold text-slate-900">Histórico de Movimentações</h2>
-        <p className="text-sm text-slate-500 mt-0.5">Últimas {rows.length} movimentações</p>
+        <h2 className="text-xl font-bold text-slate-900">Histórico de Movimentações</h2>
+        <p className="text-sm text-slate-500 mt-1">Últimas {rows.length} movimentações</p>
       </div>
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -50,7 +50,7 @@ export default async function MovementsPage() {
             <tbody className="divide-y divide-slate-100">
               {rows.map((r) => (
                 <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5">
+                  <td className="px-5 py-4">
                     {r.type === "entry" ? (
                       <span className="inline-flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-xs font-medium">
                         <ArrowDownCircle size={11} />
@@ -63,15 +63,15 @@ export default async function MovementsPage() {
                       </span>
                     )}
                   </td>
-                  <td className="px-5 py-3.5 font-medium text-slate-800">{r.product_name}</td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-5 py-4 font-medium text-slate-800">{r.product_name}</td>
+                  <td className="px-5 py-4">
                     <span className="font-mono text-xs bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{r.lot_number}</span>
                   </td>
-                  <td className="px-5 py-3.5 text-right font-semibold tabular-nums text-slate-800">{Number(r.boxes)}</td>
-                  <td className="px-5 py-3.5 text-right tabular-nums text-slate-500">{Number(r.kg).toFixed(2)}</td>
-                  <td className="px-5 py-3.5 tabular-nums text-slate-500">{r.movement_date}</td>
-                  <td className="px-5 py-3.5 text-slate-600">{r.registered_by_name}</td>
-                  <td className="px-5 py-3.5 text-slate-400">{r.reason ?? "—"}</td>
+                  <td className="px-5 py-4 text-right font-semibold tabular-nums text-slate-800">{Number(r.boxes)}</td>
+                  <td className="px-5 py-4 text-right tabular-nums text-slate-500">{Number(r.kg).toFixed(2)}</td>
+                  <td className="px-5 py-4 tabular-nums text-slate-500">{r.movement_date}</td>
+                  <td className="px-5 py-4 text-slate-600">{r.registered_by_name}</td>
+                  <td className="px-5 py-4 text-slate-400">{r.reason ?? "—"}</td>
                 </tr>
               ))}
             </tbody>

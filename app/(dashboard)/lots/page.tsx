@@ -36,8 +36,8 @@ export default async function LotsPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-slate-900">Lotes</h2>
-          <p className="text-sm text-slate-500 mt-0.5">{lots.length} lote{lots.length !== 1 ? "s" : ""} registrado{lots.length !== 1 ? "s" : ""}</p>
+          <h2 className="text-xl font-bold text-slate-900">Lotes</h2>
+          <p className="text-sm text-slate-500 mt-1">{lots.length} lote{lots.length !== 1 ? "s" : ""} registrado{lots.length !== 1 ? "s" : ""}</p>
         </div>
         <Link
           href="/lots/new"
@@ -71,17 +71,17 @@ export default async function LotsPage() {
             <tbody className="divide-y divide-slate-100">
               {lots.map((l) => (
                 <tr key={l.lot_id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800">{l.product_name}</td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-5 py-4 font-medium text-slate-800">{l.product_name}</td>
+                  <td className="px-5 py-4">
                     <span className="font-mono text-xs bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">
                       {l.lot_number}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500 tabular-nums">{l.entry_date}</td>
-                  <td className="px-5 py-3.5"><ExpiryBadge date={l.expiry_date} /></td>
-                  <td className="px-5 py-3.5 text-right font-semibold text-slate-800 tabular-nums">{Number(l.balance_boxes)}</td>
-                  <td className="px-5 py-3.5 text-right text-slate-500 tabular-nums">{Number(l.balance_kg).toFixed(2)}</td>
-                  <td className="px-5 py-3.5 text-right">
+                  <td className="px-5 py-4 text-slate-500 tabular-nums">{l.entry_date}</td>
+                  <td className="px-5 py-4"><ExpiryBadge date={l.expiry_date} /></td>
+                  <td className="px-5 py-4 text-right font-semibold text-slate-800 tabular-nums">{Number(l.balance_boxes)}</td>
+                  <td className="px-5 py-4 text-right text-slate-500 tabular-nums">{Number(l.balance_kg).toFixed(2)}</td>
+                  <td className="px-5 py-4 text-right">
                     <Link href={`/lots/${l.lot_id}`} className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-blue-600 transition-colors">
                       <Eye size={12} />
                       Ver

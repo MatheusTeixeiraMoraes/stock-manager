@@ -23,7 +23,7 @@ export default async function EditProductPage({
   const action = updateProduct.bind(null, id);
 
   return (
-    <div className="max-w-xl space-y-5">
+    <div className="max-w-2xl space-y-5">
       <div>
         <Link href="/products" className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-700 transition-colors mb-4">
           <ArrowLeft size={13} />

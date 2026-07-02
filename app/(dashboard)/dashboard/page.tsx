@@ -17,14 +17,14 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 flex items-start gap-4">
-      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${color}`}>
-        <Icon size={18} strokeWidth={2} />
+    <div className="bg-white rounded-xl border border-slate-200 p-6 flex items-start gap-5">
+      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${color}`}>
+        <Icon size={22} strokeWidth={2} />
       </div>
       <div>
-        <p className="text-xs font-medium text-slate-500 mb-0.5">{label}</p>
-        <p className="text-2xl font-bold text-slate-900 leading-none">{value}</p>
-        {sub && <p className="text-xs text-slate-400 mt-1">{sub}</p>}
+        <p className="text-sm font-medium text-slate-500 mb-1">{label}</p>
+        <p className="text-3xl font-bold text-slate-900 leading-none">{value}</p>
+        {sub && <p className="text-xs text-slate-400 mt-1.5">{sub}</p>}
       </div>
     </div>
   );
@@ -50,8 +50,8 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-slate-900">Dashboard</h2>
-        <p className="text-sm text-slate-500 mt-0.5">Visão geral do estoque</p>
+        <h2 className="text-xl font-bold text-slate-900">Dashboard</h2>
+        <p className="text-sm text-slate-500 mt-1">Visão geral do estoque</p>
       </div>
 
       {/* Stats */}
@@ -129,15 +129,15 @@ export default async function DashboardPage() {
             <tbody className="divide-y divide-slate-100">
               {products.map((p) => (
                 <tr key={p.product_id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3 font-medium text-slate-800">{p.product_name}</td>
-                  <td className="px-5 py-3 text-slate-500">{p.product_line}</td>
-                  <td className="px-5 py-3 text-right">
+                  <td className="px-5 py-4 font-medium text-slate-800">{p.product_name}</td>
+                  <td className="px-5 py-4 text-slate-500">{p.product_line}</td>
+                  <td className="px-5 py-4 text-right">
                     <span className={`font-semibold ${Number(p.total_boxes) < 10 ? "text-amber-600" : "text-slate-900"}`}>
                       {Number(p.total_boxes)}
                     </span>
                   </td>
-                  <td className="px-5 py-3 text-right text-slate-500">{Number(p.total_kg).toFixed(2)}</td>
-                  <td className="px-5 py-3 text-right text-slate-500">{Number(p.lot_count)}</td>
+                  <td className="px-5 py-4 text-right text-slate-500">{Number(p.total_kg).toFixed(2)}</td>
+                  <td className="px-5 py-4 text-right text-slate-500">{Number(p.lot_count)}</td>
                 </tr>
               ))}
             </tbody>

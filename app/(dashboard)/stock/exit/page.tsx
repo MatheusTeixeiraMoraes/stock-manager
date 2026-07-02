@@ -23,7 +23,7 @@ export default async function StockExitPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="max-w-xl space-y-5">
+    <div className="max-w-2xl space-y-5">
       {/* Header */}
       <div>
         <Link

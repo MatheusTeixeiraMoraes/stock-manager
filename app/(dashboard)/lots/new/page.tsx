@@ -14,7 +14,7 @@ export default async function NewLotPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="max-w-xl space-y-5">
+    <div className="max-w-2xl space-y-5">
       <div>
         <Link href="/lots" className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-700 transition-colors mb-4">
           <ArrowLeft size={13} />
