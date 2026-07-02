@@ -1,5 +1,4 @@
 import { cache } from "react";
-import { unstable_cache } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -15,20 +14,16 @@ export const requireAuth = cache(async () => {
   return user;
 });
 
-export const getUserRole = unstable_cache(
-  async (userId: string): Promise<UserRole> => {
-    const supabase = await createClient();
-    const { data } = await supabase
-      .from("user_profiles")
-      .select("role")
-      .eq("id", userId)
-      .single();
+export const getUserRole = cache(async (userId: string): Promise<UserRole> => {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("user_profiles")
+    .select("role")
+    .eq("id", userId)
+    .single();
 
-    return (data?.role as UserRole) ?? "operator";
-  },
-  ["user-role"],
-  { revalidate: 300 }
-);
+  return (data?.role as UserRole) ?? "operator";
+});
 
 export async function requireAdmin() {
   const user = await requireAuth();
