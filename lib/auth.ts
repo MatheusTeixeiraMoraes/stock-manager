@@ -1,9 +1,11 @@
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export type UserRole = "admin" | "operator";
 
-export async function requireAuth() {
+export const requireAuth = cache(async () => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -11,18 +13,22 @@ export async function requireAuth() {
 
   if (!user) redirect("/login");
   return user;
-}
+});
 
-export async function getUserRole(userId: string): Promise<UserRole> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("user_profiles")
-    .select("role")
-    .eq("id", userId)
-    .single();
+export const getUserRole = unstable_cache(
+  async (userId: string): Promise<UserRole> => {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("user_profiles")
+      .select("role")
+      .eq("id", userId)
+      .single();
 
-  return (data?.role as UserRole) ?? "operator";
-}
+    return (data?.role as UserRole) ?? "operator";
+  },
+  ["user-role"],
+  { revalidate: 300 }
+);
 
 export async function requireAdmin() {
   const user = await requireAuth();

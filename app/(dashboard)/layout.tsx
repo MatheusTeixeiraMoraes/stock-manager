@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { getUserRole } from "@/lib/auth";
+import { requireAuth, getUserRole } from "@/lib/auth";
 import Sidebar from "@/components/layout/Sidebar";
 import TopBar from "@/components/layout/TopBar";
 
@@ -9,22 +8,15 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const user = await requireAuth();
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  const [role, profileResult] = await Promise.all([
+    getUserRole(user.id),
+    supabase.from("user_profiles").select("full_name").eq("id", user.id).single(),
+  ]);
 
-  const role = await getUserRole(user.id);
-
-  const { data: profile } = await supabase
-    .from("user_profiles")
-    .select("full_name")
-    .eq("id", user.id)
-    .single();
-
-  const userName = profile?.full_name ?? user.email ?? "Usuário";
+  const userName = profileResult.data?.full_name ?? user.email ?? "Usuário";
 
   return (
     <div className="flex h-screen overflow-hidden">
