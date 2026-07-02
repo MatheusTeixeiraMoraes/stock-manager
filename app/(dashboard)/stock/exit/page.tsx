@@ -2,7 +2,8 @@ import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { registerExit } from "./actions";
 import Link from "next/link";
-import { ArrowLeft, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpCircle, Boxes } from "lucide-react";
+import FormField, { inputClass } from "@/components/ui/FormField";
 import type { FifoNextLot, Product } from "@/types/database";
 
 export default async function StockExitPage() {
@@ -22,39 +23,52 @@ export default async function StockExitPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="max-w-lg space-y-5">
+    <div className="max-w-xl space-y-5">
+      {/* Header */}
       <div>
-        <Link href="/movements" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors mb-3">
-          <ArrowLeft size={14} />
+        <Link
+          href="/movements"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-700 transition-colors mb-4"
+        >
+          <ArrowLeft size={13} />
           Histórico
         </Link>
-        <h2 className="text-lg font-bold text-slate-900">Saída de estoque</h2>
-        <p className="text-sm text-slate-500 mt-0.5">O sistema retira automaticamente do lote mais antigo (FIFO)</p>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center">
+            <ArrowUpCircle size={18} className="text-blue-600" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-zinc-900">Saída de estoque</h2>
+            <p className="text-xs text-zinc-500 mt-0.5">O sistema retira do lote mais antigo automaticamente (FIFO)</p>
+          </div>
+        </div>
       </div>
 
-      {/* FIFO preview */}
+      {/* FIFO info */}
       {fifoMap.size > 0 && (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-          <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
-            <Info size={13} className="text-slate-400" />
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Próximo lote por produto (FIFO)</p>
+        <div className="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-zinc-100 bg-zinc-50 flex items-center gap-2">
+            <Boxes size={13} className="text-zinc-400" />
+            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Próximo lote (FIFO) por produto</p>
           </div>
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-zinc-100">
             {products.filter((p) => fifoMap.has(p.id)).map((p) => {
               const fifo = fifoMap.get(p.id)!;
               return (
-                <div key={p.id} className="px-4 py-3 flex items-center justify-between">
+                <div key={p.id} className="px-5 py-3 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-800">{p.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      <span className="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-600">{fifo.lot_number}</span>
-                      {" · "}entrada {fifo.entry_date}
+                    <p className="text-sm font-semibold text-zinc-800">{p.name}</p>
+                    <p className="text-xs text-zinc-400 mt-0.5 flex items-center gap-1.5">
+                      <span className="font-mono bg-zinc-100 text-zinc-600 px-1.5 py-0.5 rounded text-[11px]">
+                        {fifo.lot_number}
+                      </span>
+                      <span>entrada {fifo.entry_date}</span>
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold text-slate-900">{Number(fifo.balance_boxes)} cx</p>
+                    <p className="text-sm font-bold text-zinc-900">{Number(fifo.balance_boxes)} cx</p>
                     {fifo.expiry_date && (
-                      <p className="text-xs text-amber-600 mt-0.5">vence {fifo.expiry_date}</p>
+                      <p className="text-[11px] text-amber-600 mt-0.5">vence {fifo.expiry_date}</p>
                     )}
                   </div>
                 </div>
@@ -64,84 +78,55 @@ export default async function StockExitPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <form action={registerExit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Produto / Cor</label>
-            <select
-              name="product_id"
-              required
-              className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            >
+      {/* Form */}
+      <div className="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+          <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Dados da saída</p>
+        </div>
+        <form action={registerExit} className="px-6 py-5 space-y-4">
+          <FormField label="Produto / Cor">
+            <select name="product_id" required className={inputClass()}>
               <option value="">Selecione o produto...</option>
               {products.map((p) => {
                 const fifo = fifoMap.get(p.id);
                 return (
                   <option key={p.id} value={p.id}>
                     {p.name} — {p.line}
-                    {fifo ? ` (${Number(fifo.balance_boxes)} cx disponíveis)` : " (sem estoque)"}
+                    {fifo
+                      ? ` (${Number(fifo.balance_boxes)} cx disponíveis)`
+                      : " (sem estoque)"}
                   </option>
                 );
               })}
             </select>
-          </div>
+          </FormField>
 
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Caixas a retirar</label>
-              <input
-                name="boxes"
-                type="number"
-                step="0.01"
-                min="0"
-                required
-                defaultValue="0"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Kg <span className="text-slate-400 font-normal">(opcional)</span>
-              </label>
-              <input
-                name="kg"
-                type="number"
-                step="0.0001"
-                min="0"
-                defaultValue="0"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-            </div>
+            <FormField label="Caixas a retirar">
+              <input name="boxes" type="number" step="0.01" min="0" required defaultValue="0" className={inputClass()} />
+            </FormField>
+            <FormField label="Kg" optional>
+              <input name="kg" type="number" step="0.0001" min="0" defaultValue="0" className={inputClass()} />
+            </FormField>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Data da saída</label>
-            <input
-              name="movement_date"
-              type="date"
-              required
-              defaultValue={today}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            />
-          </div>
+          <FormField label="Data da saída">
+            <input name="movement_date" type="date" required defaultValue={today} className={inputClass()} />
+          </FormField>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">
-              Destino / Motivo <span className="text-slate-400 font-normal">(opcional)</span>
-            </label>
-            <input
-              name="reason"
-              className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              placeholder="Ex: Obra rua das Flores"
-            />
-          </div>
+          <FormField label="Destino / Motivo" optional>
+            <input name="reason" className={inputClass()} placeholder="Ex: Obra rua das Flores" />
+          </FormField>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-2.5 text-sm transition-colors"
-          >
-            Registrar saída
-          </button>
+          <div className="pt-1">
+            <button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              <ArrowUpCircle size={15} />
+              Registrar saída
+            </button>
+          </div>
         </form>
       </div>
     </div>
