@@ -17,6 +17,7 @@ export interface Product {
   line: string;
   unit_weight: number;
   active: boolean;
+  is_demo: boolean;
   created_at: string;
   updated_at: string;
 }

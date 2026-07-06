@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { requireAuth } from "@/lib/auth";
+import { requireAuth, getUserRole } from "@/lib/auth";
 import { AlertTriangle, Boxes, ShoppingCart, Package2, Clock } from "lucide-react";
+import DemoDataButton from "@/components/dashboard/DemoDataButton";
 import type { ProductBalance, LotBalance } from "@/types/database";
 
 function StatCard({
@@ -33,18 +34,21 @@ function StatCard({
 }
 
 export default async function DashboardPage() {
-  await requireAuth();
+  const user = await requireAuth();
   const supabase = await createClient();
 
-  const [productBalance, lowStock, expiryAlert] = await Promise.all([
+  const [role, productBalance, lowStock, expiryAlert, demoCount] = await Promise.all([
+    getUserRole(user.id),
     supabase.from("v_product_balance").select("*"),
     supabase.from("v_low_stock").select("*"),
     supabase.from("v_expiry_alert").select("*"),
+    supabase.from("products").select("id", { count: "exact", head: true }).eq("is_demo", true),
   ]);
 
   const products = (productBalance.data ?? []) as ProductBalance[];
   const lowStockItems = (lowStock.data ?? []) as ProductBalance[];
   const expiring = (expiryAlert.data ?? []) as LotBalance[];
+  const hasDemoData = (demoCount.count ?? 0) > 0;
 
   const totalBoxesNova = products.reduce((s, p) => s + Number(p.boxes_nova), 0);
   const totalBoxesRecuperada = products.reduce((s, p) => s + Number(p.boxes_recuperada), 0);
@@ -52,9 +56,12 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-ink">Dashboard</h2>
-        <p className="text-sm text-ink-soft mt-1">Visão geral do estoque</p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-bold text-ink">Dashboard</h2>
+          <p className="text-sm text-ink-soft mt-1">Visão geral do estoque</p>
+        </div>
+        {role === "admin" && <DemoDataButton active={hasDemoData} />}
       </div>
 
       {/* Stats */}
