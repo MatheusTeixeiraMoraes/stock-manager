@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Package, Lock, Mail } from "lucide-react";
 
@@ -112,7 +113,12 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-zinc-800">Senha</label>
+              <div className="flex items-baseline justify-between">
+                <label className="block text-sm font-medium text-zinc-800">Senha</label>
+                <Link href="/forgot-password" className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+                  Esqueceu a senha?
+                </Link>
+              </div>
               <div className="relative">
                 <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
                 <input

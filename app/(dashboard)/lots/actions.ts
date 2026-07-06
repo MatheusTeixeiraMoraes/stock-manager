@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { requireAuth } from "@/lib/auth";
+import { requireAuth, requireAdmin } from "@/lib/auth";
 
 export async function createLot(formData: FormData) {
   const user = await requireAuth();
@@ -60,6 +60,46 @@ export async function createLot(formData: FormData) {
       reason: "Entrada inicial do lote",
       registered_by: user.id,
     });
+  }
+
+  revalidatePath("/lots");
+  redirect("/lots");
+}
+
+export async function updateLot(id: string, formData: FormData) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const lot_type = (formData.get("lot_type") as string) === "recuperada" ? "recuperada" : "nova";
+  const lot_number = formData.get("lot_number") as string;
+  const entry_date = formData.get("entry_date") as string;
+  const manufacture_date = (formData.get("manufacture_date") as string) || null;
+  const expiry_date = (formData.get("expiry_date") as string) || null;
+  const notes = (formData.get("notes") as string) || null;
+
+  const { error } = await supabase
+    .from("lots")
+    .update({ lot_type, lot_number, entry_date, manufacture_date, expiry_date, notes })
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/lots");
+  revalidatePath(`/lots/${id}`);
+  redirect(`/lots/${id}`);
+}
+
+export async function deleteLot(id: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("lots").delete().eq("id", id);
+
+  if (error) {
+    if (error.code === "23503") {
+      throw new Error("Não é possível excluir: este lote já tem movimentações registradas.");
+    }
+    throw new Error(error.message);
   }
 
   revalidatePath("/lots");

@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import LotTypeBadge from "@/components/ui/LotTypeBadge";
+import ExportCsvButton from "@/components/reports/ExportCsvButton";
 import type { ProductBalance, LotBalance } from "@/types/database";
 
 export default async function ReportsPage() {
@@ -27,8 +28,22 @@ export default async function ReportsPage() {
 
       {/* Saldo por produto */}
       <Card>
-        <div className="px-5 py-4 border-b border-slate-200">
+        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
           <h3 className="text-sm font-semibold text-slate-700">Saldo por produto</h3>
+          <ExportCsvButton
+            filename="saldo-por-produto.csv"
+            headers={["Produto", "Linha", "Lotes ativos", "Nova (cx)", "Recuperada (cx)", "Total (cx)", "Kg (nova)", "Lote mais antigo"]}
+            rows={products.map((p) => [
+              p.product_name,
+              p.product_line,
+              Number(p.lot_count),
+              Number(p.boxes_nova),
+              Number(p.boxes_recuperada),
+              Number(p.total_boxes),
+              Number(p.kg_nova).toFixed(2),
+              p.oldest_lot_date ?? "",
+            ])}
+          />
         </div>
         <table className="w-full text-sm">
           <thead>
@@ -66,8 +81,21 @@ export default async function ReportsPage() {
 
       {/* Saldo por lote */}
       <Card>
-        <div className="px-5 py-4 border-b border-slate-200">
+        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
           <h3 className="text-sm font-semibold text-slate-700">Saldo por lote</h3>
+          <ExportCsvButton
+            filename="saldo-por-lote.csv"
+            headers={["Produto", "Lote", "Tipo", "Entrada", "Validade", "Caixas", "Kg"]}
+            rows={lots.map((l) => [
+              l.product_name,
+              l.lot_number,
+              l.lot_type,
+              l.entry_date,
+              l.expiry_date ?? "",
+              Number(l.balance_boxes),
+              Number(l.balance_kg).toFixed(2),
+            ])}
+          />
         </div>
         <table className="w-full text-sm">
           <thead>

@@ -1,9 +1,11 @@
-import { requireAuth } from "@/lib/auth";
+import { requireAuth, getUserRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import LotTypeBadge from "@/components/ui/LotTypeBadge";
+import DeleteLotButton from "@/components/lots/DeleteLotButton";
 import Link from "next/link";
+import { Pencil } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { LotBalance } from "@/types/database";
 
@@ -22,11 +24,12 @@ export default async function LotDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAuth();
+  const user = await requireAuth();
   const { id } = await params;
   const supabase = await createClient();
 
-  const [lotResult, movementsResult] = await Promise.all([
+  const [role, lotResult, movementsResult] = await Promise.all([
+    getUserRole(user.id),
     supabase.from("v_lot_balance").select("*").eq("lot_id", id).single(),
     supabase
       .from("v_movement_history")
@@ -42,9 +45,23 @@ export default async function LotDetailPage({
 
   return (
     <div className="space-y-4 max-w-3xl">
-      <div className="flex items-center gap-3">
-        <Link href="/lots" className="text-sm text-slate-500 hover:text-slate-800">← Lotes</Link>
-        <h2 className="text-xl font-semibold text-slate-900">Lote {lot.lot_number}</h2>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Link href="/lots" className="text-sm text-slate-500 hover:text-slate-800">← Lotes</Link>
+          <h2 className="text-xl font-semibold text-slate-900">Lote {lot.lot_number}</h2>
+        </div>
+        {role === "admin" && (
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/lots/${lot.lot_id}/edit`}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-indigo-600 border border-zinc-200 hover:border-indigo-300 rounded-lg px-3 py-1.5 transition-colors"
+            >
+              <Pencil size={12} />
+              Editar
+            </Link>
+            <DeleteLotButton lotId={lot.lot_id} lotNumber={lot.lot_number} />
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
