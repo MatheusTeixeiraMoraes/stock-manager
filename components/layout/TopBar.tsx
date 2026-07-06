@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -33,12 +34,12 @@ export default function TopBar({ title, userName }: TopBarProps) {
       </span>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2.5">
+        <Link href="/profile" className="flex items-center gap-2.5 group">
           <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm">
             <span className="text-xs font-bold text-white">{initials}</span>
           </div>
-          <span className="text-sm font-medium text-ink">{userName}</span>
-        </div>
+          <span className="text-sm font-medium text-ink group-hover:text-accent transition-colors">{userName}</span>
+        </Link>
         <div className="w-px h-5 bg-line" />
         <button
           onClick={handleLogout}

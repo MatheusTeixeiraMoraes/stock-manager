@@ -10,6 +10,7 @@ const PROTECTED_PREFIXES = [
   "/reports",
   "/users",
   "/change-password",
+  "/profile",
 ];
 
 export async function updateSession(request: NextRequest) {
