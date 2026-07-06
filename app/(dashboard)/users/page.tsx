@@ -34,7 +34,7 @@ export default async function UsersPage() {
               <tr className="bg-surface-alt border-b border-line">
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Nome</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Papel</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Desde</th>
+                <th className="hidden sm:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Desde</th>
                 <th className="px-5 py-3 w-16" />
               </tr>
             </thead>
@@ -63,7 +63,7 @@ export default async function UsersPage() {
                       <RoleSelect userId={u.id} currentRole={u.role} />
                     )}
                   </td>
-                  <td className="px-5 py-3.5 text-ink-soft">
+                  <td className="hidden sm:table-cell px-5 py-3.5 text-ink-soft">
                     {new Date(u.created_at).toLocaleDateString("pt-BR")}
                   </td>
                   <td className="px-5 py-3.5 text-right">

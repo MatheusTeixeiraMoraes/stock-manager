@@ -138,28 +138,28 @@ export default async function DashboardPage() {
             <thead>
               <tr className="bg-surface-alt border-b border-line">
                 <th className="px-5 py-2.5 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Produto</th>
-                <th className="px-5 py-2.5 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Linha</th>
+                <th className="hidden md:table-cell px-5 py-2.5 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Linha</th>
                 <th className="px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Nova (cx)</th>
                 <th className="px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Recuperada (cx)</th>
-                <th className="px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Total (cx)</th>
-                <th className="px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Kg (nova)</th>
-                <th className="px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Lotes</th>
+                <th className="hidden sm:table-cell px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Total (cx)</th>
+                <th className="hidden lg:table-cell px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Kg (nova)</th>
+                <th className="hidden lg:table-cell px-5 py-2.5 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Lotes</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
               {products.map((p) => (
                 <tr key={p.product_id} className="hover:bg-surface-alt transition-colors">
                   <td className="px-5 py-4 font-medium text-ink">{p.product_name}</td>
-                  <td className="px-5 py-4 text-ink-soft">{p.product_line}</td>
+                  <td className="hidden md:table-cell px-5 py-4 text-ink-soft">{p.product_line}</td>
                   <td className="px-5 py-4 text-right">
                     <span className={`font-semibold ${Number(p.boxes_nova) < 10 ? "text-warn-ink" : "text-ink"}`}>
                       {Number(p.boxes_nova)}
                     </span>
                   </td>
                   <td className="px-5 py-4 text-right text-accent font-medium">{Number(p.boxes_recuperada)}</td>
-                  <td className="px-5 py-4 text-right text-ink-soft">{Number(p.total_boxes)}</td>
-                  <td className="px-5 py-4 text-right text-ink-soft">{Number(p.kg_nova).toFixed(2)}</td>
-                  <td className="px-5 py-4 text-right text-ink-soft">{Number(p.lot_count)}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-right text-ink-soft">{Number(p.total_boxes)}</td>
+                  <td className="hidden lg:table-cell px-5 py-4 text-right text-ink-soft">{Number(p.kg_nova).toFixed(2)}</td>
+                  <td className="hidden lg:table-cell px-5 py-4 text-right text-ink-soft">{Number(p.lot_count)}</td>
                 </tr>
               ))}
             </tbody>

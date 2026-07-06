@@ -96,13 +96,13 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
               <tr className="bg-surface-alt border-b border-line">
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Movimento</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Produto</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Lote</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Tipo</th>
+                <th className="hidden md:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Lote</th>
+                <th className="hidden md:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Tipo</th>
                 <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Caixas</th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Kg</th>
+                <th className="hidden sm:table-cell px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Kg</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Data</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Usuário</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Motivo</th>
+                <th className="hidden lg:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Usuário</th>
+                <th className="hidden lg:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Motivo</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -122,15 +122,15 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
                     )}
                   </td>
                   <td className="px-5 py-4 font-medium text-ink">{r.product_name}</td>
-                  <td className="px-5 py-4">
+                  <td className="hidden md:table-cell px-5 py-4">
                     <span className="font-mono text-xs bg-surface-alt text-ink-soft px-1.5 py-0.5 rounded">{r.lot_number}</span>
                   </td>
-                  <td className="px-5 py-4"><LotTypeBadge type={r.lot_type} /></td>
+                  <td className="hidden md:table-cell px-5 py-4"><LotTypeBadge type={r.lot_type} /></td>
                   <td className="px-5 py-4 text-right font-semibold tabular-nums text-ink">{Number(r.boxes)}</td>
-                  <td className="px-5 py-4 text-right tabular-nums text-ink-soft">{Number(r.kg).toFixed(2)}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-right tabular-nums text-ink-soft">{Number(r.kg).toFixed(2)}</td>
                   <td className="px-5 py-4 tabular-nums text-ink-soft">{r.movement_date}</td>
-                  <td className="px-5 py-4 text-ink-soft">{r.registered_by_name}</td>
-                  <td className="px-5 py-4 text-ink-soft/70">{r.reason ?? "—"}</td>
+                  <td className="hidden lg:table-cell px-5 py-4 text-ink-soft">{r.registered_by_name}</td>
+                  <td className="hidden lg:table-cell px-5 py-4 text-ink-soft/70">{r.reason ?? "—"}</td>
                 </tr>
               ))}
             </tbody>

@@ -41,8 +41,10 @@
   --foreground: #2B2A26;
 }
 
-html {
+html, body {
+  height: 100%;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -51,8 +53,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
-  overflow-x: hidden;
   overscroll-behavior-y: none;
+}
+
+/* Scroll com momentum no iOS para os containers roláveis (tabelas, area principal) */
+.overflow-x-auto,
+main {
+  -webkit-overflow-scrolling: touch;
 }
 
 /* iOS Safari da zoom automatico ao focar campos com fonte < 16px.

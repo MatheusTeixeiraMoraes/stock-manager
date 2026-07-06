@@ -83,10 +83,10 @@ export default function LotsTable({ lots }: { lots: LotBalance[] }) {
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Produto</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Lote</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Tipo</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Entrada</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Validade</th>
+                <th className="hidden md:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Entrada</th>
+                <th className="hidden md:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Validade</th>
                 <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Saldo cx</th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Saldo kg</th>
+                <th className="hidden sm:table-cell px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Saldo kg</th>
                 <th className="px-5 py-3 w-16" />
               </tr>
             </thead>
@@ -100,10 +100,10 @@ export default function LotsTable({ lots }: { lots: LotBalance[] }) {
                     </span>
                   </td>
                   <td className="px-5 py-4"><LotTypeBadge type={l.lot_type} /></td>
-                  <td className="px-5 py-4 text-ink-soft tabular-nums">{l.entry_date}</td>
-                  <td className="px-5 py-4"><ExpiryBadge date={l.expiry_date} /></td>
+                  <td className="hidden md:table-cell px-5 py-4 text-ink-soft tabular-nums">{l.entry_date}</td>
+                  <td className="hidden md:table-cell px-5 py-4"><ExpiryBadge date={l.expiry_date} /></td>
                   <td className="px-5 py-4 text-right font-semibold text-ink tabular-nums">{Number(l.balance_boxes)}</td>
-                  <td className="px-5 py-4 text-right text-ink-soft tabular-nums">{Number(l.balance_kg).toFixed(2)}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-right text-ink-soft tabular-nums">{Number(l.balance_kg).toFixed(2)}</td>
                   <td className="px-5 py-4 text-right">
                     <Link href={`/lots/${l.lot_id}`} className="inline-flex items-center gap-1 text-xs font-medium text-ink-soft/70 hover:text-accent transition-colors">
                       <Eye size={12} />

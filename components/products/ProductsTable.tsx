@@ -45,8 +45,8 @@ export default function ProductsTable({ products }: { products: Product[] }) {
             <thead>
               <tr className="bg-surface-alt border-b border-line">
                 <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Nome / Cor</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Linha</th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Peso/cx (kg)</th>
+                <th className="hidden sm:table-cell px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Linha</th>
+                <th className="hidden sm:table-cell px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Peso/cx (kg)</th>
                 <th className="px-5 py-3 text-center text-xs font-semibold text-ink-soft uppercase tracking-wide">Status</th>
                 <th className="px-5 py-3 w-16" />
               </tr>
@@ -55,8 +55,8 @@ export default function ProductsTable({ products }: { products: Product[] }) {
               {filtered.map((p) => (
                 <tr key={p.id} className="hover:bg-surface-alt transition-colors">
                   <td className="px-5 py-4 font-medium text-ink">{p.name}</td>
-                  <td className="px-5 py-4 text-ink-soft">{p.line}</td>
-                  <td className="px-5 py-4 text-right text-ink-soft tabular-nums">{Number(p.unit_weight).toFixed(4)}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-ink-soft">{p.line}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-right text-ink-soft tabular-nums">{Number(p.unit_weight).toFixed(4)}</td>
                   <td className="px-5 py-4 text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${p.active ? "bg-moss-soft text-moss-ink" : "bg-surface-alt text-ink-soft"}`}>
                       {p.active ? "Ativo" : "Inativo"}

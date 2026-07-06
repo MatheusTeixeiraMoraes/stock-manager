@@ -50,26 +50,26 @@ export default async function ReportsPage() {
           <thead>
             <tr className="border-b border-line">
               <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Produto</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Linha</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Lotes ativos</th>
+              <th className="hidden md:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Linha</th>
+              <th className="hidden lg:table-cell px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Lotes ativos</th>
               <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Nova (cx)</th>
               <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Recuperada (cx)</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Total (cx)</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg (nova)</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote mais antigo</th>
+              <th className="hidden sm:table-cell px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Total (cx)</th>
+              <th className="hidden lg:table-cell px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg (nova)</th>
+              <th className="hidden lg:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote mais antigo</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-line">
             {products.map((p) => (
               <tr key={p.product_id} className="hover:bg-surface-alt">
                 <td className="px-5 py-3 font-medium text-ink">{p.product_name}</td>
-                <td className="px-5 py-3 text-ink-soft">{p.product_line}</td>
-                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.lot_count)}</td>
+                <td className="hidden md:table-cell px-5 py-3 text-ink-soft">{p.product_line}</td>
+                <td className="hidden lg:table-cell px-5 py-3 text-right text-ink-soft">{Number(p.lot_count)}</td>
                 <td className="px-5 py-3 text-right font-semibold text-ink">{Number(p.boxes_nova)}</td>
                 <td className="px-5 py-3 text-right font-medium text-accent">{Number(p.boxes_recuperada)}</td>
-                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.total_boxes)}</td>
-                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.kg_nova).toFixed(2)}</td>
-                <td className="px-5 py-3 text-ink-soft">
+                <td className="hidden sm:table-cell px-5 py-3 text-right text-ink-soft">{Number(p.total_boxes)}</td>
+                <td className="hidden lg:table-cell px-5 py-3 text-right text-ink-soft">{Number(p.kg_nova).toFixed(2)}</td>
+                <td className="hidden lg:table-cell px-5 py-3 text-ink-soft">
                   {p.oldest_lot_date ? (
                     <Badge variant="warning">{p.oldest_lot_date}</Badge>
                   ) : "—"}
@@ -104,24 +104,24 @@ export default async function ReportsPage() {
           <thead>
             <tr className="border-b border-line">
               <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Produto</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote</th>
+              <th className="hidden sm:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote</th>
               <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Tipo</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Entrada</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Validade</th>
+              <th className="hidden md:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Entrada</th>
+              <th className="hidden md:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Validade</th>
               <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Cxs</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
+              <th className="hidden sm:table-cell px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-line">
             {lots.map((l) => (
               <tr key={l.lot_id} className="hover:bg-surface-alt">
                 <td className="px-5 py-3 font-medium text-ink">{l.product_name}</td>
-                <td className="px-5 py-3 text-ink-soft">{l.lot_number}</td>
+                <td className="hidden sm:table-cell px-5 py-3 text-ink-soft">{l.lot_number}</td>
                 <td className="px-5 py-3"><LotTypeBadge type={l.lot_type} /></td>
-                <td className="px-5 py-3 text-ink-soft">{l.entry_date}</td>
-                <td className="px-5 py-3 text-ink-soft">{l.expiry_date ?? "—"}</td>
+                <td className="hidden md:table-cell px-5 py-3 text-ink-soft">{l.entry_date}</td>
+                <td className="hidden md:table-cell px-5 py-3 text-ink-soft">{l.expiry_date ?? "—"}</td>
                 <td className="px-5 py-3 text-right font-semibold text-ink">{Number(l.balance_boxes)}</td>
-                <td className="px-5 py-3 text-right text-ink-soft">{Number(l.balance_kg).toFixed(2)}</td>
+                <td className="hidden sm:table-cell px-5 py-3 text-right text-ink-soft">{Number(l.balance_kg).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

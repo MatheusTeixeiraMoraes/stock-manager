@@ -98,10 +98,10 @@ export default async function LotDetailPage({
               <tr className="border-b border-line">
                 <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Tipo</th>
                 <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Cxs</th>
-                <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
+                <th className="hidden sm:table-cell px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
                 <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Data</th>
-                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Usuário</th>
-                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Motivo</th>
+                <th className="hidden md:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Usuário</th>
+                <th className="hidden md:table-cell px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Motivo</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -113,10 +113,10 @@ export default async function LotDetailPage({
                     </Badge>
                   </td>
                   <td className="px-5 py-3 text-right">{Number(m.boxes)}</td>
-                  <td className="px-5 py-3 text-right">{Number(m.kg).toFixed(2)}</td>
+                  <td className="hidden sm:table-cell px-5 py-3 text-right">{Number(m.kg).toFixed(2)}</td>
                   <td className="px-5 py-3">{m.movement_date}</td>
-                  <td className="px-5 py-3">{m.registered_by_name}</td>
-                  <td className="px-5 py-3 text-ink-soft/70">{m.reason ?? "—"}</td>
+                  <td className="hidden md:table-cell px-5 py-3">{m.registered_by_name}</td>
+                  <td className="hidden md:table-cell px-5 py-3 text-ink-soft/70">{m.reason ?? "—"}</td>
                 </tr>
               ))}
             </tbody>
