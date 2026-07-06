@@ -40,7 +40,7 @@ export async function createUser(
     email,
     password,
     email_confirm: true,
-    user_metadata: { full_name, role },
+    user_metadata: { full_name, role, must_change_password: true },
   });
 
   if (error) {

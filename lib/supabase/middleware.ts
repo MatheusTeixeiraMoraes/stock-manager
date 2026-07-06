@@ -9,6 +9,7 @@ const PROTECTED_PREFIXES = [
   "/movements",
   "/reports",
   "/users",
+  "/change-password",
 ];
 
 export async function updateSession(request: NextRequest) {
@@ -44,6 +45,7 @@ export async function updateSession(request: NextRequest) {
     path.startsWith(prefix)
   );
   const isLoginPage = path === "/login";
+  const isChangePasswordPage = path === "/change-password";
 
   if (!user && isProtected) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -51,6 +53,18 @@ export async function updateSession(request: NextRequest) {
 
   if (user && isLoginPage) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  if (user && isProtected && !isChangePasswordPage) {
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("must_change_password")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.must_change_password) {
+      return NextResponse.redirect(new URL("/change-password", request.url));
+    }
   }
 
   return response;
