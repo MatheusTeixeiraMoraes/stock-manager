@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import FormField, { inputClass } from "@/components/ui/FormField";
 import { ArrowUpCircle, ShoppingCart, Boxes } from "lucide-react";
+import { registerExit, type RegisterExitState } from "@/app/(dashboard)/stock/exit/actions";
 import type { FifoNextLot, Product } from "@/types/database";
 
 interface Props {
@@ -11,7 +12,10 @@ interface Props {
   today: string;
 }
 
+const initialState: RegisterExitState = {};
+
 export default function ExitFields({ products, fifoRows, today }: Props) {
+  const [state, formAction, pending] = useActionState(registerExit, initialState);
   const [productId, setProductId] = useState("");
   const [lotType, setLotType] = useState<"nova" | "recuperada">("nova");
   const [boxes, setBoxes] = useState(0);
@@ -22,7 +26,7 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
   const computedKg = isNova && product ? boxes * Number(product.unit_weight) : 0;
 
   return (
-    <>
+    <form action={formAction} className="px-6 py-5 space-y-4">
       <FormField label="Produto / Cor">
         <select
           name="product_id"
@@ -118,17 +122,22 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
         />
       </FormField>
 
+      {state.error && (
+        <p className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-lg px-4 py-3">{state.error}</p>
+      )}
+
       <div className="pt-1">
         <button
           type="submit"
-          className={`w-full text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2 ${
+          disabled={pending}
+          className={`w-full text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50 ${
             isNova ? "bg-ochre hover:bg-ochre-hover" : "bg-accent hover:bg-accent-hover"
           }`}
         >
           {isNova ? <ArrowUpCircle size={15} /> : <ShoppingCart size={15} />}
-          {isNova ? "Registrar uso em obra" : "Registrar venda"}
+          {pending ? "Salvando..." : isNova ? "Registrar uso em obra" : "Registrar venda"}
         </button>
       </div>
-    </>
+    </form>
   );
 }

@@ -5,7 +5,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth";
 
-export async function registerExit(formData: FormData) {
+export interface RegisterExitState {
+  error?: string;
+}
+
+export async function registerExit(
+  _prevState: RegisterExitState,
+  formData: FormData
+): Promise<RegisterExitState> {
   const user = await requireAuth();
   const supabase = await createClient();
 
@@ -17,7 +24,7 @@ export async function registerExit(formData: FormData) {
   const reason = (formData.get("reason") as string) || null;
 
   if (boxes <= 0) {
-    throw new Error("Informe ao menos a quantidade em caixas.");
+    return { error: "Informe ao menos a quantidade em caixas." };
   }
 
   const { error } = await supabase.rpc("register_exit", {
@@ -30,7 +37,13 @@ export async function registerExit(formData: FormData) {
     p_user_id: user.id,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    // Retorna em vez de lancar: em producao o Next.js apaga a mensagem
+    // de qualquer erro "throw" de uma Server Action (ex: "Estoque
+    // insuficiente...", vindo direto do banco) e mostra um texto
+    // generico no lugar. Retornar o valor evita essa redacao.
+    return { error: error.message };
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/lots");

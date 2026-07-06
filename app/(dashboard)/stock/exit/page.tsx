@@ -1,6 +1,5 @@
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { registerExit } from "./actions";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpCircle } from "lucide-react";
 import ExitFields from "@/components/stock/ExitFields";
@@ -49,9 +48,7 @@ export default async function StockExitPage() {
         <div className="px-6 py-4 border-b border-line bg-surface-alt">
           <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider">Dados da saída</p>
         </div>
-        <form action={registerExit} className="px-6 py-5 space-y-4">
-          <ExitFields products={products} fifoRows={fifoRows} today={today} />
-        </form>
+        <ExitFields products={products} fifoRows={fifoRows} today={today} />
       </div>
     </div>
   );

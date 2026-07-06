@@ -15,12 +15,12 @@ export default function DeleteLotButton({ lotId, lotNumber }: { lotId: string; l
 
     setError(null);
     startTransition(async () => {
-      try {
-        await deleteLot(lotId);
+      const result = await deleteLot(lotId);
+      if (result?.error) {
+        setError(result.error);
+      } else {
         router.push("/lots");
         router.refresh();
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Erro ao excluir lote.");
       }
     });
   }

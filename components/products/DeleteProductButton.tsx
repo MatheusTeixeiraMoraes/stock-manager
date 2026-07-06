@@ -13,11 +13,8 @@ export default function DeleteProductButton({ productId, productName }: { produc
 
     setError(null);
     startTransition(async () => {
-      try {
-        await deleteProduct(productId);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Erro ao excluir produto.");
-      }
+      const result = await deleteProduct(productId);
+      if (result?.error) setError(result.error);
     });
   }
 

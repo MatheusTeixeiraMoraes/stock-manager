@@ -13,11 +13,8 @@ export default function DeleteUserButton({ userId, userName }: { userId: string;
 
     setError(null);
     startTransition(async () => {
-      try {
-        await deleteUser(userId);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Erro ao excluir usuário.");
-      }
+      const result = await deleteUser(userId);
+      if (result?.error) setError(result.error);
     });
   }
 

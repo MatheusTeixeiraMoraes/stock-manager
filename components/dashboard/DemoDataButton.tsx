@@ -15,15 +15,8 @@ export default function DemoDataButton({ active }: { active: boolean }) {
 
     setError(null);
     startTransition(async () => {
-      try {
-        if (active) {
-          await deactivateDemoData();
-        } else {
-          await activateDemoData();
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Erro ao processar dados de demonstração.");
-      }
+      const result = active ? await deactivateDemoData() : await activateDemoData();
+      if (result?.error) setError(result.error);
     });
   }
 

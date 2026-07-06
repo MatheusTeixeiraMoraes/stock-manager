@@ -5,7 +5,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth";
 
-export async function registerEntry(formData: FormData) {
+export interface RegisterEntryState {
+  error?: string;
+}
+
+export async function registerEntry(
+  _prevState: RegisterEntryState,
+  formData: FormData
+): Promise<RegisterEntryState> {
   const user = await requireAuth();
   const supabase = await createClient();
 
@@ -16,7 +23,7 @@ export async function registerEntry(formData: FormData) {
   const reason = (formData.get("reason") as string) || null;
 
   if (boxes <= 0 && kg <= 0) {
-    throw new Error("Informe ao menos caixas ou kg.");
+    return { error: "Informe ao menos caixas ou kg." };
   }
 
   // Tinta nova: peso sempre determinístico (boxes × peso fixo do produto)
@@ -43,7 +50,12 @@ export async function registerEntry(formData: FormData) {
     registered_by: user.id,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    // Retorna em vez de lancar: em producao o Next.js apaga a mensagem
+    // de qualquer erro "throw" de uma Server Action e mostra um texto
+    // generico no lugar. Retornar o valor evita essa redacao.
+    return { error: error.message };
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/lots");

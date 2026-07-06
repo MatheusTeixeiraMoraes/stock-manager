@@ -89,21 +89,26 @@ export async function updateLot(id: string, formData: FormData) {
   redirect(`/lots/${id}`);
 }
 
-export async function deleteLot(id: string) {
+export async function deleteLot(id: string): Promise<{ error?: string }> {
   await requireAdmin();
   const supabase = await createClient();
 
   const { error } = await supabase.from("lots").delete().eq("id", id);
 
   if (error) {
+    // Retorna o erro em vez de lançar: em producao, o Next.js apaga a
+    // mensagem de qualquer erro "throw" de dentro de uma Server Action
+    // (por seguranca) e mostra um texto generico no lugar. Retornar o
+    // valor normalmente evita essa redacao.
     if (error.code === "23503") {
-      throw new Error("Não é possível excluir: este lote já tem movimentações registradas.");
+      return { error: "Não é possível excluir: este lote já tem movimentações registradas." };
     }
-    throw new Error(error.message);
+    return { error: error.message };
   }
 
   // Sem redirect() aqui: essa action é chamada via clique (não <form>),
   // então o redirect seria capturado pelo try/catch do componente cliente
   // em vez de navegar. A navegação fica por conta do DeleteLotButton.
   revalidatePath("/lots");
+  return {};
 }

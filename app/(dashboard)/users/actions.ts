@@ -51,9 +51,11 @@ export async function createUser(
   return { success: { email, password } };
 }
 
-export async function updateUserRole(userId: string, formData: FormData) {
+export async function updateUserRole(userId: string, formData: FormData): Promise<void> {
   const { user } = await requireAdmin();
 
+  // Inatingível pela UI (RoleSelect não é exibido para a própria linha do
+  // usuário), mantido como guarda extra caso a action seja chamada de outra forma.
   if (userId === user.id) {
     throw new Error("Você não pode alterar seu próprio papel.");
   }
@@ -67,11 +69,11 @@ export async function updateUserRole(userId: string, formData: FormData) {
   revalidatePath("/users");
 }
 
-export async function deleteUser(userId: string) {
+export async function deleteUser(userId: string): Promise<{ error?: string }> {
   const { user } = await requireAdmin();
 
   if (userId === user.id) {
-    throw new Error("Você não pode excluir sua própria conta.");
+    return { error: "Você não pode excluir sua própria conta." };
   }
 
   const supabase = await createClient();
@@ -82,12 +84,13 @@ export async function deleteUser(userId: string) {
     .single();
 
   if (profile?.role === "admin") {
-    throw new Error("Não é possível excluir uma conta de administrador por aqui.");
+    return { error: "Não é possível excluir uma conta de administrador por aqui." };
   }
 
   const admin = createAdminClient();
   const { error } = await admin.auth.admin.deleteUser(userId);
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
 
   revalidatePath("/users");
+  return {};
 }

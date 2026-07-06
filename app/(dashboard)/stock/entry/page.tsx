@@ -1,9 +1,7 @@
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { registerEntry } from "./actions";
 import Link from "next/link";
 import { ArrowLeft, ArrowDownCircle } from "lucide-react";
-import FormField, { inputClass } from "@/components/ui/FormField";
 import EntryFields from "@/components/stock/EntryFields";
 
 interface LotOption {
@@ -60,27 +58,7 @@ export default async function StockEntryPage() {
         <div className="px-6 py-4 border-b border-line bg-surface-alt">
           <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider">Dados da entrada</p>
         </div>
-        <form action={registerEntry} className="px-6 py-5 space-y-4">
-          <EntryFields lots={lots} />
-
-          <FormField label="Data da entrada">
-            <input name="movement_date" type="date" required defaultValue={today} className={inputClass()} />
-          </FormField>
-
-          <FormField label="Motivo / Observação" optional>
-            <input name="reason" className={inputClass()} placeholder="Ex: Reposição de estoque" />
-          </FormField>
-
-          <div className="pt-1">
-            <button
-              type="submit"
-              className="w-full bg-moss hover:bg-moss-hover text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2"
-            >
-              <ArrowDownCircle size={15} />
-              Registrar entrada
-            </button>
-          </div>
-        </form>
+        <EntryFields lots={lots} today={today} />
       </div>
     </div>
   );

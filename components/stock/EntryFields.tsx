@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import FormField, { inputClass } from "@/components/ui/FormField";
+import { ArrowDownCircle } from "lucide-react";
+import { registerEntry, type RegisterEntryState } from "@/app/(dashboard)/stock/entry/actions";
 
 interface LotOption {
   id: string;
@@ -11,7 +13,15 @@ interface LotOption {
   unit_weight: number;
 }
 
-export default function EntryFields({ lots }: { lots: LotOption[] }) {
+interface Props {
+  lots: LotOption[];
+  today: string;
+}
+
+const initialState: RegisterEntryState = {};
+
+export default function EntryFields({ lots, today }: Props) {
+  const [state, formAction, pending] = useActionState(registerEntry, initialState);
   const [lotId, setLotId] = useState("");
   const [boxes, setBoxes] = useState(0);
 
@@ -20,7 +30,7 @@ export default function EntryFields({ lots }: { lots: LotOption[] }) {
   const computedKg = lot ? boxes * Number(lot.unit_weight) : 0;
 
   return (
-    <>
+    <form action={formAction} className="px-6 py-5 space-y-4">
       <FormField label="Lote">
         <select
           name="lot_id"
@@ -65,6 +75,29 @@ export default function EntryFields({ lots }: { lots: LotOption[] }) {
           </FormField>
         )}
       </div>
-    </>
+
+      <FormField label="Data da entrada">
+        <input name="movement_date" type="date" required defaultValue={today} className={inputClass()} />
+      </FormField>
+
+      <FormField label="Motivo / Observação" optional>
+        <input name="reason" className={inputClass()} placeholder="Ex: Reposição de estoque" />
+      </FormField>
+
+      {state.error && (
+        <p className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-lg px-4 py-3">{state.error}</p>
+      )}
+
+      <div className="pt-1">
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full bg-moss hover:bg-moss-hover disabled:opacity-50 text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2"
+        >
+          <ArrowDownCircle size={15} />
+          {pending ? "Salvando..." : "Registrar entrada"}
+        </button>
+      </div>
+    </form>
   );
 }
