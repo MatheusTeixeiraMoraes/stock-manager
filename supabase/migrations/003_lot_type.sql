@@ -20,10 +20,20 @@ create index if not exists idx_lots_lot_type on public.lots(lot_type);
 
 -- ─────────────────────────────────────────
 -- 2. Views — recriadas com lot_type
+--    O Postgres não permite reordenar/inserir colunas no meio de uma
+--    view existente via CREATE OR REPLACE (só permite adicionar no
+--    final). Como lot_type entra no meio, é preciso derrubar e
+--    recriar. Views não guardam dado — seguro.
 -- ─────────────────────────────────────────
+drop view if exists public.v_low_stock cascade;
+drop view if exists public.v_expiry_alert cascade;
+drop view if exists public.v_fifo_next_lot cascade;
+drop view if exists public.v_product_balance cascade;
+drop view if exists public.v_lot_balance cascade;
+drop view if exists public.v_movement_history cascade;
 
 -- Saldo atual por lote (agora com lot_type)
-create or replace view public.v_lot_balance as
+create view public.v_lot_balance as
 select
   l.id                    as lot_id,
   l.lot_number,
@@ -56,7 +66,7 @@ group by
   l.created_at, l.notes;
 
 -- Saldo total por produto — separado por tipo (nova / recuperada)
-create or replace view public.v_product_balance as
+create view public.v_product_balance as
 select
   product_id,
   product_name,
@@ -73,7 +83,7 @@ from public.v_lot_balance
 group by product_id, product_name, product_line;
 
 -- FIFO: lote mais antigo com saldo positivo, por produto E por tipo
-create or replace view public.v_fifo_next_lot as
+create view public.v_fifo_next_lot as
 select distinct on (product_id, lot_type)
   lot_id,
   product_id,
@@ -90,13 +100,13 @@ order by product_id, lot_type, entry_date asc, created_at asc;
 
 -- Alerta de estoque baixo — considera apenas tinta NOVA
 -- (recuperada é excedente para venda, não compromete obras futuras)
-create or replace view public.v_low_stock as
+create view public.v_low_stock as
 select *
 from public.v_product_balance
 where boxes_nova < 10;
 
 -- Alerta de validade próxima (30 dias) com saldo positivo — mantém todos os tipos
-create or replace view public.v_expiry_alert as
+create view public.v_expiry_alert as
 select *
 from public.v_lot_balance
 where
@@ -106,7 +116,7 @@ where
 order by expiry_date asc;
 
 -- Histórico de movimentações com detalhes (agora com lot_type)
-create or replace view public.v_movement_history as
+create view public.v_movement_history as
 select
   m.id,
   m.type,
@@ -132,7 +142,11 @@ order by m.created_at desc;
 -- 3. register_exit() — agora exige o tipo (nova/recuperada) e
 --    consome FIFO apenas dentro daquele tipo. Para "nova", o peso é
 --    sempre boxes × unit_weight do produto (determinístico).
+--    A assinatura mudou (novo parâmetro p_lot_type), então a versão
+--    antiga precisa ser removida para não ficar um overload órfão.
 -- ─────────────────────────────────────────
+drop function if exists public.register_exit(uuid, numeric, numeric, date, text, uuid);
+
 create or replace function public.register_exit(
   p_product_id  uuid,
   p_lot_type    text,
