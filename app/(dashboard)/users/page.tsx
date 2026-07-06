@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Users } from "lucide-react";
 import InviteUserForm from "@/components/users/InviteUserForm";
 import RoleSelect from "@/components/users/RoleSelect";
+import DeleteUserButton from "@/components/users/DeleteUserButton";
 import type { UserProfile } from "@/types/database";
 
 export default async function UsersPage() {
@@ -33,6 +34,7 @@ export default async function UsersPage() {
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Nome</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Papel</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Desde</th>
+                <th className="px-5 py-3 w-16" />
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -62,6 +64,11 @@ export default async function UsersPage() {
                   </td>
                   <td className="px-5 py-3.5 text-slate-500">
                     {new Date(u.created_at).toLocaleDateString("pt-BR")}
+                  </td>
+                  <td className="px-5 py-3.5 text-right">
+                    {u.id !== currentUser.id && u.role === "operator" && (
+                      <DeleteUserButton userId={u.id} userName={u.full_name} />
+                    )}
                   </td>
                 </tr>
               ))}

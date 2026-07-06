@@ -66,3 +66,28 @@ export async function updateUserRole(userId: string, formData: FormData) {
 
   revalidatePath("/users");
 }
+
+export async function deleteUser(userId: string) {
+  const { user } = await requireAdmin();
+
+  if (userId === user.id) {
+    throw new Error("Você não pode excluir sua própria conta.");
+  }
+
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("role")
+    .eq("id", userId)
+    .single();
+
+  if (profile?.role === "admin") {
+    throw new Error("Não é possível excluir uma conta de administrador por aqui.");
+  }
+
+  const admin = createAdminClient();
+  const { error } = await admin.auth.admin.deleteUser(userId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/users");
+}
