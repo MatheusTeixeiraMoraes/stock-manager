@@ -42,7 +42,7 @@ export default async function ProfilePage() {
             <input disabled value={user.email ?? ""} className={`${inputClass()} bg-surface-alt text-ink-soft`} />
           </FormField>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField label="Papel">
               <div className={`${inputClass()} bg-surface-alt text-ink-soft flex items-center`}>
                 {role === "admin" ? "Administrador" : "Operador"}

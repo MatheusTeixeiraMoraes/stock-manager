@@ -40,6 +40,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
             </p>
           </div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-alt border-b border-line">
@@ -71,6 +72,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

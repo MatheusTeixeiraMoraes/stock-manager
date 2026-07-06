@@ -28,7 +28,7 @@ export default async function ReportsPage() {
 
       {/* Saldo por produto */}
       <Card>
-        <div className="px-5 py-4 border-b border-line flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-line flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-ink">Saldo por produto</h3>
           <ExportCsvButton
             filename="saldo-por-produto.csv"
@@ -45,6 +45,7 @@ export default async function ReportsPage() {
             ])}
           />
         </div>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-line">
@@ -77,11 +78,12 @@ export default async function ReportsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
 
       {/* Saldo por lote */}
       <Card>
-        <div className="px-5 py-4 border-b border-line flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-line flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-ink">Saldo por lote</h3>
           <ExportCsvButton
             filename="saldo-por-lote.csv"
@@ -97,6 +99,7 @@ export default async function ReportsPage() {
             ])}
           />
         </div>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-line">
@@ -123,6 +126,7 @@ export default async function ReportsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
 
       {/* Alertas */}

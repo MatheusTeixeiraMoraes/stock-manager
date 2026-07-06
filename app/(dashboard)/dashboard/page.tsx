@@ -56,7 +56,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-ink">Dashboard</h2>
           <p className="text-sm text-ink-soft mt-1">Visão geral do estoque</p>
@@ -133,6 +133,7 @@ export default async function DashboardPage() {
             <p className="text-xs text-ink-soft/70 mt-1">Vá em Produtos para adicionar</p>
           </div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-alt border-b border-line">
@@ -163,6 +164,7 @@ export default async function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

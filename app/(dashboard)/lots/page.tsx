@@ -18,7 +18,7 @@ export default async function LotsPage() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold text-ink">Lotes</h2>
           <p className="text-sm text-ink-soft mt-1">{lots.length} lote{lots.length !== 1 ? "s" : ""} registrado{lots.length !== 1 ? "s" : ""}</p>

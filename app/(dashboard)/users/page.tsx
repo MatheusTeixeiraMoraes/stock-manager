@@ -28,6 +28,7 @@ export default async function UsersPage() {
             <p className="text-sm font-medium text-ink-soft">Nenhum usuário encontrado</p>
           </div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-alt border-b border-line">
@@ -74,6 +75,7 @@ export default async function UsersPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

@@ -45,10 +45,10 @@ export default async function LotDetailPage({
 
   return (
     <div className="space-y-4 max-w-3xl">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link href="/lots" className="text-sm text-ink-soft hover:text-ink">← Lotes</Link>
-          <h2 className="text-xl font-semibold text-ink">Lote {lot.lot_number}</h2>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Link href="/lots" className="text-sm text-ink-soft hover:text-ink flex-shrink-0">← Lotes</Link>
+          <h2 className="text-xl font-semibold text-ink truncate">Lote {lot.lot_number}</h2>
         </div>
         {role === "admin" && (
           <div className="flex items-center gap-2">
@@ -92,6 +92,7 @@ export default async function LotDetailPage({
         {movements.length === 0 ? (
           <p className="px-5 py-6 text-sm text-ink-soft/70 text-center">Nenhuma movimentação registrada.</p>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-line">
@@ -120,6 +121,7 @@ export default async function LotDetailPage({
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
     </div>

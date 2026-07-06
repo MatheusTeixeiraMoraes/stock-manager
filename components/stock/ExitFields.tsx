@@ -77,7 +77,7 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <FormField label={isNova ? "Caixas para uso em obra" : "Caixas vendidas"}>
           <input
             name="boxes"

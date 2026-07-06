@@ -25,7 +25,7 @@ export default function InviteUserForm() {
         <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider">Novo usuário</p>
       </div>
       <form action={formAction} className="px-6 py-5 space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField label="Nome completo">
             <input name="full_name" required className={inputClass()} placeholder="Ex: João da Silva" />
           </FormField>

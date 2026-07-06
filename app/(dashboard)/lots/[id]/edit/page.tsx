@@ -61,7 +61,7 @@ export default async function EditLotPage({
             <input name="lot_number" required defaultValue={lot.lot_number} className={inputClass()} />
           </FormField>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField label="Data de entrada">
               <input name="entry_date" type="date" required defaultValue={lot.entry_date} className={inputClass()} />
             </FormField>

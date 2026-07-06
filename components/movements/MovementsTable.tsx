@@ -90,6 +90,7 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
             {rows.length > 0 && <p className="text-xs text-ink-soft/70 mt-1">Tente outro termo de busca ou filtro</p>}
           </div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-alt border-b border-line">
@@ -134,6 +135,7 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

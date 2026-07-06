@@ -41,9 +41,35 @@
   --foreground: #2B2A26;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* iOS Safari da zoom automatico ao focar campos com fonte < 16px.
+   Forca 16px so em telas pequenas, preservando o texto compacto no desktop. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Espacamento seguro para notch/home indicator do iOS quando o site
+   e instalado na tela de inicio (display: standalone). */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }

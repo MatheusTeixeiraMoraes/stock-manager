@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth, getUserRole } from "@/lib/auth";
-import Sidebar from "@/components/layout/Sidebar";
-import TopBar from "@/components/layout/TopBar";
+import DashboardShell from "@/components/layout/DashboardShell";
 
 export default async function DashboardLayout({
   children,
@@ -19,12 +18,8 @@ export default async function DashboardLayout({
   const userName = profileResult.data?.full_name ?? user.email ?? "Usuário";
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar role={role} />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <TopBar title="Stock Manager" userName={userName} />
-        <main className="flex-1 overflow-y-auto bg-canvas px-8 py-8">{children}</main>
-      </div>
-    </div>
+    <DashboardShell role={role} userName={userName}>
+      {children}
+    </DashboardShell>
   );
 }

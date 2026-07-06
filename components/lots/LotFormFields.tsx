@@ -57,7 +57,7 @@ export default function LotFormFields({ products }: { products: ProductOption[] 
 
       <div className="border-t border-line pt-4">
         <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider mb-4">Quantidade inicial</p>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField label="Caixas" hint="Deixe 0 para registrar depois">
             <input
               name="initial_boxes"
