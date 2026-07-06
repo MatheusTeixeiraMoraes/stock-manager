@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth";
-import { AlertTriangle, Boxes, Package2, Clock } from "lucide-react";
+import { AlertTriangle, Boxes, ShoppingCart, Package2, Clock } from "lucide-react";
 import type { ProductBalance, LotBalance } from "@/types/database";
 
 function StatCard({
@@ -44,8 +44,8 @@ export default async function DashboardPage() {
   const lowStockItems = (lowStock.data ?? []) as ProductBalance[];
   const expiring = (expiryAlert.data ?? []) as LotBalance[];
 
-  const totalBoxes = products.reduce((s, p) => s + Number(p.total_boxes), 0);
-  const totalLots = products.reduce((s, p) => s + Number(p.lot_count), 0);
+  const totalBoxesNova = products.reduce((s, p) => s + Number(p.boxes_nova), 0);
+  const totalBoxesRecuperada = products.reduce((s, p) => s + Number(p.boxes_recuperada), 0);
 
   return (
     <div className="space-y-6">
@@ -56,9 +56,9 @@ export default async function DashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total em estoque" value={totalBoxes} sub="caixas" icon={Boxes} color="bg-indigo-50 text-indigo-600" />
-        <StatCard label="Produtos ativos" value={products.length} sub="cores/linhas" icon={Package2} color="bg-violet-50 text-violet-600" />
-        <StatCard label="Lotes em estoque" value={totalLots} sub="lotes ativos" icon={Clock} color="bg-emerald-50 text-emerald-600" />
+        <StatCard label="Tinta nova" value={totalBoxesNova} sub="caixas — reservadas p/ obras" icon={Boxes} color="bg-indigo-50 text-indigo-600" />
+        <StatCard label="Tinta recuperada" value={totalBoxesRecuperada} sub="caixas — disponíveis p/ venda" icon={ShoppingCart} color="bg-violet-50 text-violet-600" />
+        <StatCard label="Produtos ativos" value={products.length} sub="cores/linhas" icon={Package2} color="bg-emerald-50 text-emerald-600" />
         <StatCard label="Alertas ativos" value={lowStockItems.length + expiring.length} sub="requerem atenção" icon={AlertTriangle} color={lowStockItems.length + expiring.length > 0 ? "bg-red-50 text-red-600" : "bg-slate-50 text-slate-400"} />
       </div>
 
@@ -70,14 +70,14 @@ export default async function DashboardPage() {
               <div className="flex items-center gap-2 mb-3">
                 <AlertTriangle size={15} className="text-amber-600" />
                 <p className="text-sm font-semibold text-amber-800">
-                  Estoque baixo ({lowStockItems.length} produto{lowStockItems.length > 1 ? "s" : ""})
+                  Estoque baixo de tinta nova ({lowStockItems.length} produto{lowStockItems.length > 1 ? "s" : ""})
                 </p>
               </div>
               <ul className="space-y-1.5">
                 {lowStockItems.map((p) => (
                   <li key={p.product_id} className="flex justify-between text-sm text-amber-700">
                     <span>{p.product_name}</span>
-                    <span className="font-semibold">{Number(p.total_boxes)} cx</span>
+                    <span className="font-semibold">{Number(p.boxes_nova)} cx</span>
                   </li>
                 ))}
               </ul>
@@ -121,8 +121,10 @@ export default async function DashboardPage() {
               <tr className="bg-slate-50 border-b border-slate-100">
                 <th className="px-5 py-2.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Produto</th>
                 <th className="px-5 py-2.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Linha</th>
-                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Caixas</th>
-                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Kg</th>
+                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Nova (cx)</th>
+                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Recuperada (cx)</th>
+                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Total (cx)</th>
+                <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Kg (nova)</th>
                 <th className="px-5 py-2.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Lotes</th>
               </tr>
             </thead>
@@ -132,11 +134,13 @@ export default async function DashboardPage() {
                   <td className="px-5 py-4 font-medium text-slate-800">{p.product_name}</td>
                   <td className="px-5 py-4 text-slate-500">{p.product_line}</td>
                   <td className="px-5 py-4 text-right">
-                    <span className={`font-semibold ${Number(p.total_boxes) < 10 ? "text-amber-600" : "text-slate-900"}`}>
-                      {Number(p.total_boxes)}
+                    <span className={`font-semibold ${Number(p.boxes_nova) < 10 ? "text-amber-600" : "text-slate-900"}`}>
+                      {Number(p.boxes_nova)}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-right text-slate-500">{Number(p.total_kg).toFixed(2)}</td>
+                  <td className="px-5 py-4 text-right text-violet-600 font-medium">{Number(p.boxes_recuperada)}</td>
+                  <td className="px-5 py-4 text-right text-slate-500">{Number(p.total_boxes)}</td>
+                  <td className="px-5 py-4 text-right text-slate-500">{Number(p.kg_nova).toFixed(2)}</td>
                   <td className="px-5 py-4 text-right text-slate-500">{Number(p.lot_count)}</td>
                 </tr>
               ))}

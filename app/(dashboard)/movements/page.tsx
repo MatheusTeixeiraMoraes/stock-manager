@@ -1,6 +1,8 @@
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { ClipboardList, ArrowDownCircle, ArrowUpCircle } from "lucide-react";
+import LotTypeBadge from "@/components/ui/LotTypeBadge";
+import type { LotType } from "@/types/database";
 
 interface MovementRow {
   id: string;
@@ -10,6 +12,7 @@ interface MovementRow {
   movement_date: string;
   reason: string | null;
   lot_number: string;
+  lot_type: LotType;
   product_name: string;
   registered_by_name: string;
 }
@@ -37,9 +40,10 @@ export default async function MovementsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Tipo</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Movimento</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Produto</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Lote</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Tipo</th>
                 <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Caixas</th>
                 <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Kg</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Data</th>
@@ -67,6 +71,7 @@ export default async function MovementsPage() {
                   <td className="px-5 py-4">
                     <span className="font-mono text-xs bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{r.lot_number}</span>
                   </td>
+                  <td className="px-5 py-4"><LotTypeBadge type={r.lot_type} /></td>
                   <td className="px-5 py-4 text-right font-semibold tabular-nums text-slate-800">{Number(r.boxes)}</td>
                   <td className="px-5 py-4 text-right tabular-nums text-slate-500">{Number(r.kg).toFixed(2)}</td>
                   <td className="px-5 py-4 tabular-nums text-slate-500">{r.movement_date}</td>

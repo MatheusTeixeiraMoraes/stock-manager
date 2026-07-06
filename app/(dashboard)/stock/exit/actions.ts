@@ -10,6 +10,7 @@ export async function registerExit(formData: FormData) {
   const supabase = await createClient();
 
   const product_id = formData.get("product_id") as string;
+  const lot_type = (formData.get("lot_type") as string) || "nova";
   const boxes = parseFloat(formData.get("boxes") as string) || 0;
   const kg = parseFloat(formData.get("kg") as string) || 0;
   const movement_date = formData.get("movement_date") as string;
@@ -21,6 +22,7 @@ export async function registerExit(formData: FormData) {
 
   const { error } = await supabase.rpc("register_exit", {
     p_product_id: product_id,
+    p_lot_type: lot_type,
     p_boxes: boxes,
     p_kg: kg,
     p_date: movement_date,

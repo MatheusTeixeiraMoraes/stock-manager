@@ -10,18 +10,31 @@ export async function createLot(formData: FormData) {
   const supabase = await createClient();
 
   const product_id = formData.get("product_id") as string;
+  const lot_type = (formData.get("lot_type") as string) || "nova";
   const lot_number = formData.get("lot_number") as string;
   const entry_date = formData.get("entry_date") as string;
   const manufacture_date = (formData.get("manufacture_date") as string) || null;
   const expiry_date = (formData.get("expiry_date") as string) || null;
   const initial_boxes = parseFloat(formData.get("initial_boxes") as string) || 0;
-  const initial_kg = parseFloat(formData.get("initial_kg") as string) || 0;
   const notes = (formData.get("notes") as string) || null;
+
+  let initial_kg = parseFloat(formData.get("initial_kg") as string) || 0;
+
+  // Tinta nova: peso sempre determinístico (boxes × peso fixo do produto)
+  if (lot_type === "nova") {
+    const { data: product } = await supabase
+      .from("products")
+      .select("unit_weight")
+      .eq("id", product_id)
+      .single();
+    initial_kg = initial_boxes * Number(product?.unit_weight ?? 0);
+  }
 
   const { data: lot, error } = await supabase
     .from("lots")
     .insert({
       product_id,
+      lot_type,
       lot_number,
       entry_date,
       manufacture_date,

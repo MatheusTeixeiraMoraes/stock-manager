@@ -1,4 +1,4 @@
-type BadgeVariant = "default" | "success" | "warning" | "danger" | "info";
+type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "purple";
 
 const variants: Record<BadgeVariant, string> = {
   default: "bg-slate-100 text-slate-700",
@@ -6,6 +6,7 @@ const variants: Record<BadgeVariant, string> = {
   warning: "bg-amber-100 text-amber-700",
   danger: "bg-red-100 text-red-700",
   info: "bg-blue-100 text-blue-700",
+  purple: "bg-violet-100 text-violet-700",
 };
 
 interface BadgeProps {

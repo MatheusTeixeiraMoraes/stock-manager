@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Plus, Boxes, Eye } from "lucide-react";
+import LotTypeBadge from "@/components/ui/LotTypeBadge";
 import type { LotBalance } from "@/types/database";
 
 function ExpiryBadge({ date }: { date: string | null }) {
@@ -61,6 +62,7 @@ export default async function LotsPage() {
               <tr className="bg-slate-50 border-b border-slate-200">
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Produto</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Lote</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Tipo</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Entrada</th>
                 <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Validade</th>
                 <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Saldo cx</th>
@@ -77,6 +79,7 @@ export default async function LotsPage() {
                       {l.lot_number}
                     </span>
                   </td>
+                  <td className="px-5 py-4"><LotTypeBadge type={l.lot_type} /></td>
                   <td className="px-5 py-4 text-slate-500 tabular-nums">{l.entry_date}</td>
                   <td className="px-5 py-4"><ExpiryBadge date={l.expiry_date} /></td>
                   <td className="px-5 py-4 text-right font-semibold text-slate-800 tabular-nums">{Number(l.balance_boxes)}</td>

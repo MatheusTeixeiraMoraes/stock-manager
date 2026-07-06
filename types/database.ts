@@ -1,5 +1,6 @@
 export type UserRole = "admin" | "operator";
 export type MovementType = "entry" | "exit";
+export type LotType = "nova" | "recuperada";
 
 export interface UserProfile {
   id: string;
@@ -22,6 +23,7 @@ export interface Product {
 export interface Lot {
   id: string;
   product_id: string;
+  lot_type: LotType;
   lot_number: string;
   entry_date: string;
   manufacture_date: string | null;
@@ -50,9 +52,11 @@ export interface Movement {
 export interface LotBalance {
   lot_id: string;
   lot_number: string;
+  lot_type: LotType;
   product_id: string;
   product_name: string;
   product_line: string;
+  unit_weight: number;
   entry_date: string;
   manufacture_date: string | null;
   expiry_date: string | null;
@@ -66,7 +70,11 @@ export interface ProductBalance {
   product_id: string;
   product_name: string;
   product_line: string;
+  boxes_nova: number;
+  boxes_recuperada: number;
   total_boxes: number;
+  kg_nova: number;
+  kg_recuperada: number;
   total_kg: number;
   lot_count: number;
   oldest_lot_date: string;
@@ -76,6 +84,7 @@ export interface FifoNextLot {
   lot_id: string;
   product_id: string;
   product_name: string;
+  lot_type: LotType;
   lot_number: string;
   entry_date: string;
   expiry_date: string | null;
@@ -85,6 +94,7 @@ export interface FifoNextLot {
 
 export interface MovementWithDetails extends Movement {
   lot_number: string;
+  lot_type: LotType;
   product_name: string;
   user_name: string;
 }

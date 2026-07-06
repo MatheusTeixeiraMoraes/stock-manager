@@ -36,8 +36,8 @@ export default async function NewProductPage() {
           <FormField label="Linha / Tipo">
             <input name="line" required className={inputClass()} placeholder="Ex: Esmalte Sintético" />
           </FormField>
-          <FormField label="Peso por caixa (kg)" hint="Usado para converter caixas em kg automaticamente">
-            <input name="unit_weight" type="number" step="0.0001" min="0" required className={inputClass()} placeholder="Ex: 18.0000" />
+          <FormField label="Peso da caixa nova (kg)" hint="Toda tinta nova usa esse peso fixo por caixa. Tinta recuperada tem peso variável, informado manualmente.">
+            <input name="unit_weight" type="number" step="0.0001" min="0" required defaultValue="25" className={inputClass()} placeholder="Ex: 25.0000" />
           </FormField>
 
           <div className="pt-1 flex gap-3">

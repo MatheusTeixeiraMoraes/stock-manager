@@ -4,13 +4,14 @@ import { createLot } from "@/app/(dashboard)/lots/actions";
 import Link from "next/link";
 import { ArrowLeft, Boxes } from "lucide-react";
 import FormField, { inputClass } from "@/components/ui/FormField";
+import LotFormFields from "@/components/lots/LotFormFields";
 import type { Product } from "@/types/database";
 
 export default async function NewLotPage() {
   await requireAuth();
   const supabase = await createClient();
-  const { data } = await supabase.from("products").select("id, name, line").eq("active", true).order("name");
-  const products = (data ?? []) as Pick<Product, "id" | "name" | "line">[];
+  const { data } = await supabase.from("products").select("id, name, line, unit_weight").eq("active", true).order("name");
+  const products = (data ?? []) as Pick<Product, "id" | "name" | "line" | "unit_weight">[];
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -36,14 +37,7 @@ export default async function NewLotPage() {
           <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Identificação</p>
         </div>
         <form action={createLot} className="px-6 py-5 space-y-4">
-          <FormField label="Produto / Cor">
-            <select name="product_id" required className={inputClass()}>
-              <option value="">Selecione...</option>
-              {products.map((p) => (
-                <option key={p.id} value={p.id}>{p.name} — {p.line}</option>
-              ))}
-            </select>
-          </FormField>
+          <LotFormFields products={products} />
 
           <FormField label="Número do lote">
             <input name="lot_number" required className={inputClass()} placeholder="Ex: LOT-2024-001" />
@@ -61,18 +55,6 @@ export default async function NewLotPage() {
           <FormField label="Data de validade" optional>
             <input name="expiry_date" type="date" className={inputClass()} />
           </FormField>
-
-          <div className="border-t border-zinc-100 pt-4">
-            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-4">Quantidade inicial</p>
-            <div className="grid grid-cols-2 gap-4">
-              <FormField label="Caixas" hint="Deixe 0 para registrar depois">
-                <input name="initial_boxes" type="number" step="0.01" min="0" defaultValue="0" className={inputClass()} />
-              </FormField>
-              <FormField label="Kg" hint="Deixe 0 para registrar depois">
-                <input name="initial_kg" type="number" step="0.0001" min="0" defaultValue="0" className={inputClass()} />
-              </FormField>
-            </div>
-          </div>
 
           <FormField label="Observações" optional>
             <textarea name="notes" rows={2} className={inputClass()} />

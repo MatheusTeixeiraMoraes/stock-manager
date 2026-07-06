@@ -51,7 +51,7 @@ export default async function EditProductPage({
           <FormField label="Linha / Tipo">
             <input name="line" required defaultValue={product.line} className={inputClass()} />
           </FormField>
-          <FormField label="Peso por caixa (kg)" hint="Usado para converter caixas em kg automaticamente">
+          <FormField label="Peso da caixa nova (kg)" hint="Toda tinta nova usa esse peso fixo por caixa. Tinta recuperada tem peso variável, informado manualmente.">
             <input name="unit_weight" type="number" step="0.0001" min="0" required defaultValue={product.unit_weight} className={inputClass()} />
           </FormField>
           <FormField label="Status">

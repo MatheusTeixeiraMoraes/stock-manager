@@ -2,6 +2,7 @@ import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
+import LotTypeBadge from "@/components/ui/LotTypeBadge";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { LotBalance } from "@/types/database";
@@ -47,6 +48,10 @@ export default async function LotDetailPage({
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Card className="p-4">
+          <p className="text-xs text-slate-500 mb-1">Tipo</p>
+          <LotTypeBadge type={lot.lot_type} />
+        </Card>
         {[
           { label: "Produto", value: lot.product_name },
           { label: "Linha", value: lot.product_line },
