@@ -1,12 +1,12 @@
-type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "purple";
+type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "teal";
 
 const variants: Record<BadgeVariant, string> = {
-  default: "bg-slate-100 text-slate-700",
-  success: "bg-green-100 text-green-700",
-  warning: "bg-amber-100 text-amber-700",
-  danger: "bg-red-100 text-red-700",
-  info: "bg-blue-100 text-blue-700",
-  purple: "bg-violet-100 text-violet-700",
+  default: "bg-tan text-tan-ink",
+  success: "bg-moss-soft text-moss-ink",
+  warning: "bg-warn-soft text-warn-ink",
+  danger: "bg-danger-soft text-danger",
+  info: "bg-accent-soft text-accent",
+  teal: "bg-accent-soft text-accent",
 };
 
 interface BadgeProps {
@@ -17,7 +17,7 @@ interface BadgeProps {
 
 export default function Badge({ children, variant = "default", className = "" }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${variants[variant]} ${className}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${variants[variant]} ${className}`}>
       {children}
     </span>
   );

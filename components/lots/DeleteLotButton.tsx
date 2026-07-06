@@ -27,12 +27,12 @@ export default function DeleteLotButton({ lotId, lotNumber }: { lotId: string; l
         type="button"
         onClick={handleClick}
         disabled={isPending}
-        className="inline-flex items-center gap-1.5 text-xs font-medium text-red-500 hover:text-red-700 border border-red-200 hover:border-red-300 rounded-lg px-3 py-1.5 transition-colors disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 text-xs font-medium text-danger hover:text-danger-hover border border-danger/25 hover:border-danger/40 rounded-lg px-3 py-1.5 transition-colors disabled:opacity-50"
       >
         <Trash2 size={12} />
         Excluir
       </button>
-      {error && <p className="text-xs text-red-500 mt-1.5 max-w-[220px]">{error}</p>}
+      {error && <p className="text-xs text-danger mt-1.5 max-w-[220px]">{error}</p>}
     </div>
   );
 }

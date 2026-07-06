@@ -1,8 +1,44 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Paleta — kraft + verde-petróleo (fábrica de tinta)
+   ============================================================ */
+@theme {
+  --color-canvas: #EDE6D6;
+  --color-surface: #F8F4E9;
+  --color-surface-alt: #F0EADA;
+  --color-sidebar: #E7DFCB;
+  --color-line: #C9BFA8;
+
+  --color-ink: #2B2A26;
+  --color-ink-soft: #776F5C;
+
+  --color-accent: #1F5C56;
+  --color-accent-hover: #17453F;
+  --color-accent-soft: #D7E4E1;
+
+  --color-tan: #DED2AE;
+  --color-tan-ink: #55492B;
+
+  --color-ochre: #8C6A2E;
+  --color-ochre-hover: #745720;
+
+  --color-moss: #4B7256;
+  --color-moss-hover: #3D5F47;
+  --color-moss-soft: #DCE6D3;
+  --color-moss-ink: #2F4A36;
+
+  --color-danger: #A63D2F;
+  --color-danger-hover: #8A3226;
+  --color-danger-soft: #F3E1DC;
+
+  --color-warn-ink: #8B6F1F;
+  --color-warn-soft: #EFE6C8;
+}
+
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #EDE6D6;
+  --foreground: #2B2A26;
 }
 
 body {

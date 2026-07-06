@@ -55,8 +55,8 @@ export default function LotFormFields({ products }: { products: ProductOption[] 
         </select>
       </FormField>
 
-      <div className="border-t border-zinc-100 pt-4">
-        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-4">Quantidade inicial</p>
+      <div className="border-t border-line pt-4">
+        <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider mb-4">Quantidade inicial</p>
         <div className="grid grid-cols-2 gap-4">
           <FormField label="Caixas" hint="Deixe 0 para registrar depois">
             <input
@@ -72,11 +72,11 @@ export default function LotFormFields({ products }: { products: ProductOption[] 
 
           {lotType === "nova" ? (
             <div className="space-y-1.5">
-              <span className="block text-sm font-medium text-zinc-800">Kg (calculado)</span>
-              <div className={`${inputClass()} bg-zinc-50 text-zinc-500 flex items-center`}>
+              <span className="block text-sm font-medium text-ink">Kg (calculado)</span>
+              <div className={`${inputClass()} bg-surface-alt text-ink-soft flex items-center`}>
                 {computedKg.toFixed(4)}
               </div>
-              <p className="text-xs text-zinc-400">Automático: caixas × peso fixo do produto</p>
+              <p className="text-xs text-ink-soft/70">Automático: caixas × peso fixo do produto</p>
             </div>
           ) : (
             <FormField label="Kg" hint="Peso variável — informe manualmente">

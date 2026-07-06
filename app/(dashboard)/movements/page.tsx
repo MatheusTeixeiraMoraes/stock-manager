@@ -25,8 +25,8 @@ export default async function MovementsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-900">Histórico de Movimentações</h2>
-        <p className="text-sm text-slate-500 mt-1">Últimas {rows.length} movimentações</p>
+        <h2 className="text-xl font-bold text-ink">Histórico de Movimentações</h2>
+        <p className="text-sm text-ink-soft mt-1">Últimas {rows.length} movimentações</p>
       </div>
 
       <MovementsTable rows={rows} />

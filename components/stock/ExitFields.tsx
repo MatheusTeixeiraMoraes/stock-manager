@@ -56,23 +56,23 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
 
       {/* FIFO info do produto+tipo selecionado */}
       {productId && (
-        <div className="bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3">
+        <div className="bg-surface-alt border border-line rounded-lg px-4 py-3">
           <div className="flex items-center gap-1.5 mb-1.5">
-            <Boxes size={12} className="text-zinc-400" />
-            <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">Próximo lote (FIFO)</p>
+            <Boxes size={12} className="text-ink-soft/70" />
+            <p className="text-[11px] font-semibold text-ink-soft uppercase tracking-wider">Próximo lote (FIFO)</p>
           </div>
           {fifo ? (
             <div className="flex items-center justify-between">
-              <p className="text-sm text-zinc-700 flex items-center gap-1.5">
-                <span className="font-mono bg-white border border-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded text-[11px]">
+              <p className="text-sm text-ink flex items-center gap-1.5">
+                <span className="font-mono bg-surface border border-line text-ink-soft px-1.5 py-0.5 rounded text-[11px]">
                   {fifo.lot_number}
                 </span>
                 <span>entrada {fifo.entry_date}</span>
               </p>
-              <p className="text-sm font-bold text-zinc-900">{Number(fifo.balance_boxes)} cx</p>
+              <p className="text-sm font-bold text-ink">{Number(fifo.balance_boxes)} cx</p>
             </div>
           ) : (
-            <p className="text-sm text-zinc-400">Sem estoque deste tipo para o produto selecionado.</p>
+            <p className="text-sm text-ink-soft/70">Sem estoque deste tipo para o produto selecionado.</p>
           )}
         </div>
       )}
@@ -93,11 +93,11 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
 
         {isNova ? (
           <div className="space-y-1.5">
-            <span className="block text-sm font-medium text-zinc-800">Kg (calculado)</span>
-            <div className={`${inputClass()} bg-zinc-50 text-zinc-500 flex items-center`}>
+            <span className="block text-sm font-medium text-ink">Kg (calculado)</span>
+            <div className={`${inputClass()} bg-surface-alt text-ink-soft flex items-center`}>
               {computedKg.toFixed(4)}
             </div>
-            <p className="text-xs text-zinc-400">Automático: caixas × peso fixo do produto</p>
+            <p className="text-xs text-ink-soft/70">Automático: caixas × peso fixo do produto</p>
           </div>
         ) : (
           <FormField label="Kg" optional hint="Peso variável — informe manualmente">
@@ -121,8 +121,8 @@ export default function ExitFields({ products, fifoRows, today }: Props) {
       <div className="pt-1">
         <button
           type="submit"
-          className={`w-full text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2 ${
-            isNova ? "bg-indigo-600 hover:bg-indigo-700" : "bg-violet-600 hover:bg-violet-700"
+          className={`w-full text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2 ${
+            isNova ? "bg-ochre hover:bg-ochre-hover" : "bg-accent hover:bg-accent-hover"
           }`}
         >
           {isNova ? <ArrowUpCircle size={15} /> : <ShoppingCart size={15} />}

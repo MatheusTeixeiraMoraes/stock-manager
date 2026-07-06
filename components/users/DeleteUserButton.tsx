@@ -28,11 +28,11 @@ export default function DeleteUserButton({ userId, userName }: { userId: string;
         onClick={handleClick}
         disabled={isPending}
         title="Excluir usuário"
-        className="text-zinc-400 hover:text-red-600 transition-colors disabled:opacity-50"
+        className="text-ink-soft/60 hover:text-danger transition-colors disabled:opacity-50"
       >
         <Trash2 size={14} />
       </button>
-      {error && <p className="text-[11px] text-red-500 max-w-[140px] text-right">{error}</p>}
+      {error && <p className="text-[11px] text-danger max-w-[140px] text-right">{error}</p>}
     </div>
   );
 }

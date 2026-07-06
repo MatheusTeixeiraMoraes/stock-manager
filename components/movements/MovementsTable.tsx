@@ -44,18 +44,18 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
       <div className="flex flex-wrap items-center gap-2.5 justify-between">
         <div className="flex flex-wrap items-center gap-2.5">
           <div className="relative max-w-xs flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft/60 pointer-events-none" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por produto, lote, usuário ou motivo..."
-              className="w-full border border-zinc-300 rounded-lg pl-9 pr-3 py-2 text-sm text-zinc-900 bg-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="w-full border border-line rounded-lg pl-9 pr-3 py-2 text-sm text-ink bg-surface placeholder:text-ink-soft/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition"
             />
           </div>
           <select
             value={movementFilter}
             onChange={(e) => setMovementFilter(e.target.value as MovementFilter)}
-            className="border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            className="border border-line rounded-lg px-3 py-2 text-sm text-ink bg-surface focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition"
           >
             <option value="all">Todos os movimentos</option>
             <option value="entry">Entrada</option>
@@ -80,56 +80,56 @@ export default function MovementsTable({ rows }: { rows: MovementRow[] }) {
         />
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div className="bg-surface rounded-xl border border-line overflow-hidden">
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <ClipboardList size={32} className="text-slate-300 mb-3" />
-            <p className="text-sm font-medium text-slate-500">
+            <ClipboardList size={32} className="text-ink-soft/40 mb-3" />
+            <p className="text-sm font-medium text-ink-soft">
               {rows.length === 0 ? "Nenhuma movimentação registrada" : "Nenhuma movimentação encontrada"}
             </p>
-            {rows.length > 0 && <p className="text-xs text-slate-400 mt-1">Tente outro termo de busca ou filtro</p>}
+            {rows.length > 0 && <p className="text-xs text-ink-soft/70 mt-1">Tente outro termo de busca ou filtro</p>}
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Movimento</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Produto</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Lote</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Tipo</th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Caixas</th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wide">Kg</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Data</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Usuário</th>
-                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">Motivo</th>
+              <tr className="bg-surface-alt border-b border-line">
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Movimento</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Produto</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Lote</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Tipo</th>
+                <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Caixas</th>
+                <th className="px-5 py-3 text-right text-xs font-semibold text-ink-soft uppercase tracking-wide">Kg</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Data</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Usuário</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-ink-soft uppercase tracking-wide">Motivo</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-line">
               {filtered.map((r) => (
-                <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={r.id} className="hover:bg-surface-alt transition-colors">
                   <td className="px-5 py-4">
                     {r.type === "entry" ? (
-                      <span className="inline-flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-xs font-medium">
+                      <span className="inline-flex items-center gap-1.5 text-moss-ink bg-moss-soft px-2 py-0.5 rounded-md text-xs font-medium">
                         <ArrowDownCircle size={11} />
                         Entrada
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full text-xs font-medium">
+                      <span className="inline-flex items-center gap-1.5 text-accent bg-accent-soft px-2 py-0.5 rounded-md text-xs font-medium">
                         <ArrowUpCircle size={11} />
                         Saída
                       </span>
                     )}
                   </td>
-                  <td className="px-5 py-4 font-medium text-slate-800">{r.product_name}</td>
+                  <td className="px-5 py-4 font-medium text-ink">{r.product_name}</td>
                   <td className="px-5 py-4">
-                    <span className="font-mono text-xs bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{r.lot_number}</span>
+                    <span className="font-mono text-xs bg-surface-alt text-ink-soft px-1.5 py-0.5 rounded">{r.lot_number}</span>
                   </td>
                   <td className="px-5 py-4"><LotTypeBadge type={r.lot_type} /></td>
-                  <td className="px-5 py-4 text-right font-semibold tabular-nums text-slate-800">{Number(r.boxes)}</td>
-                  <td className="px-5 py-4 text-right tabular-nums text-slate-500">{Number(r.kg).toFixed(2)}</td>
-                  <td className="px-5 py-4 tabular-nums text-slate-500">{r.movement_date}</td>
-                  <td className="px-5 py-4 text-slate-600">{r.registered_by_name}</td>
-                  <td className="px-5 py-4 text-slate-400">{r.reason ?? "—"}</td>
+                  <td className="px-5 py-4 text-right font-semibold tabular-nums text-ink">{Number(r.boxes)}</td>
+                  <td className="px-5 py-4 text-right tabular-nums text-ink-soft">{Number(r.kg).toFixed(2)}</td>
+                  <td className="px-5 py-4 tabular-nums text-ink-soft">{r.movement_date}</td>
+                  <td className="px-5 py-4 text-ink-soft">{r.registered_by_name}</td>
+                  <td className="px-5 py-4 text-ink-soft/70">{r.reason ?? "—"}</td>
                 </tr>
               ))}
             </tbody>

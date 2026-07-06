@@ -24,12 +24,12 @@ export default async function ReportsPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-slate-900">Relatórios</h2>
+      <h2 className="text-xl font-semibold text-ink">Relatórios</h2>
 
       {/* Saldo por produto */}
       <Card>
-        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-700">Saldo por produto</h3>
+        <div className="px-5 py-4 border-b border-line flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-ink">Saldo por produto</h3>
           <ExportCsvButton
             filename="saldo-por-produto.csv"
             headers={["Produto", "Linha", "Lotes ativos", "Nova (cx)", "Recuperada (cx)", "Total (cx)", "Kg (nova)", "Lote mais antigo"]}
@@ -47,28 +47,28 @@ export default async function ReportsPage() {
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-100">
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Produto</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Linha</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Lotes ativos</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Nova (cx)</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Recuperada (cx)</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Total (cx)</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Kg (nova)</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Lote mais antigo</th>
+            <tr className="border-b border-line">
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Produto</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Linha</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Lotes ativos</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Nova (cx)</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Recuperada (cx)</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Total (cx)</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg (nova)</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote mais antigo</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-line">
             {products.map((p) => (
-              <tr key={p.product_id} className="hover:bg-slate-50">
-                <td className="px-5 py-3 font-medium text-slate-800">{p.product_name}</td>
-                <td className="px-5 py-3 text-slate-600">{p.product_line}</td>
-                <td className="px-5 py-3 text-right text-slate-600">{Number(p.lot_count)}</td>
-                <td className="px-5 py-3 text-right font-semibold text-slate-800">{Number(p.boxes_nova)}</td>
-                <td className="px-5 py-3 text-right font-medium text-violet-600">{Number(p.boxes_recuperada)}</td>
-                <td className="px-5 py-3 text-right text-slate-600">{Number(p.total_boxes)}</td>
-                <td className="px-5 py-3 text-right text-slate-600">{Number(p.kg_nova).toFixed(2)}</td>
-                <td className="px-5 py-3 text-slate-600">
+              <tr key={p.product_id} className="hover:bg-surface-alt">
+                <td className="px-5 py-3 font-medium text-ink">{p.product_name}</td>
+                <td className="px-5 py-3 text-ink-soft">{p.product_line}</td>
+                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.lot_count)}</td>
+                <td className="px-5 py-3 text-right font-semibold text-ink">{Number(p.boxes_nova)}</td>
+                <td className="px-5 py-3 text-right font-medium text-accent">{Number(p.boxes_recuperada)}</td>
+                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.total_boxes)}</td>
+                <td className="px-5 py-3 text-right text-ink-soft">{Number(p.kg_nova).toFixed(2)}</td>
+                <td className="px-5 py-3 text-ink-soft">
                   {p.oldest_lot_date ? (
                     <Badge variant="warning">{p.oldest_lot_date}</Badge>
                   ) : "—"}
@@ -81,8 +81,8 @@ export default async function ReportsPage() {
 
       {/* Saldo por lote */}
       <Card>
-        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-700">Saldo por lote</h3>
+        <div className="px-5 py-4 border-b border-line flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-ink">Saldo por lote</h3>
           <ExportCsvButton
             filename="saldo-por-lote.csv"
             headers={["Produto", "Lote", "Tipo", "Entrada", "Validade", "Caixas", "Kg"]}
@@ -99,26 +99,26 @@ export default async function ReportsPage() {
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-100">
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Produto</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Lote</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Tipo</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Entrada</th>
-              <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Validade</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Cxs</th>
-              <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Kg</th>
+            <tr className="border-b border-line">
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Produto</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Lote</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Tipo</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Entrada</th>
+              <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Validade</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Cxs</th>
+              <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-line">
             {lots.map((l) => (
-              <tr key={l.lot_id} className="hover:bg-slate-50">
-                <td className="px-5 py-3 font-medium text-slate-800">{l.product_name}</td>
-                <td className="px-5 py-3 text-slate-600">{l.lot_number}</td>
+              <tr key={l.lot_id} className="hover:bg-surface-alt">
+                <td className="px-5 py-3 font-medium text-ink">{l.product_name}</td>
+                <td className="px-5 py-3 text-ink-soft">{l.lot_number}</td>
                 <td className="px-5 py-3"><LotTypeBadge type={l.lot_type} /></td>
-                <td className="px-5 py-3 text-slate-600">{l.entry_date}</td>
-                <td className="px-5 py-3 text-slate-600">{l.expiry_date ?? "—"}</td>
-                <td className="px-5 py-3 text-right font-semibold text-slate-800">{Number(l.balance_boxes)}</td>
-                <td className="px-5 py-3 text-right text-slate-600">{Number(l.balance_kg).toFixed(2)}</td>
+                <td className="px-5 py-3 text-ink-soft">{l.entry_date}</td>
+                <td className="px-5 py-3 text-ink-soft">{l.expiry_date ?? "—"}</td>
+                <td className="px-5 py-3 text-right font-semibold text-ink">{Number(l.balance_boxes)}</td>
+                <td className="px-5 py-3 text-right text-ink-soft">{Number(l.balance_kg).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
@@ -128,13 +128,13 @@ export default async function ReportsPage() {
       {/* Alertas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="p-5">
-          <h3 className="text-sm font-semibold text-amber-800 mb-3">⚠️ Estoque baixo de tinta nova (&lt;10 cx)</h3>
+          <h3 className="text-sm font-semibold text-warn-ink mb-3">⚠️ Estoque baixo de tinta nova (&lt;10 cx)</h3>
           {lowStockItems.length === 0 ? (
-            <p className="text-sm text-slate-400">Nenhum produto em situação crítica.</p>
+            <p className="text-sm text-ink-soft/70">Nenhum produto em situação crítica.</p>
           ) : (
             <ul className="space-y-1">
               {lowStockItems.map((p) => (
-                <li key={p.product_id} className="text-sm text-amber-700">
+                <li key={p.product_id} className="text-sm text-warn-ink">
                   {p.product_name} — {Number(p.boxes_nova)} cx
                 </li>
               ))}
@@ -143,13 +143,13 @@ export default async function ReportsPage() {
         </Card>
 
         <Card className="p-5">
-          <h3 className="text-sm font-semibold text-red-800 mb-3">🚨 Vencimento em 30 dias</h3>
+          <h3 className="text-sm font-semibold text-danger mb-3">🚨 Vencimento em 30 dias</h3>
           {expiring.length === 0 ? (
-            <p className="text-sm text-slate-400">Nenhum lote próximo do vencimento.</p>
+            <p className="text-sm text-ink-soft/70">Nenhum lote próximo do vencimento.</p>
           ) : (
             <ul className="space-y-1">
               {expiring.map((l) => (
-                <li key={l.lot_id} className="text-sm text-red-700">
+                <li key={l.lot_id} className="text-sm text-danger">
                   {l.product_name} — Lote {l.lot_number} — {l.expiry_date}
                 </li>
               ))}

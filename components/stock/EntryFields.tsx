@@ -53,11 +53,11 @@ export default function EntryFields({ lots }: { lots: LotOption[] }) {
 
         {isNova ? (
           <div className="space-y-1.5">
-            <span className="block text-sm font-medium text-zinc-800">Kg (calculado)</span>
-            <div className={`${inputClass()} bg-zinc-50 text-zinc-500 flex items-center`}>
+            <span className="block text-sm font-medium text-ink">Kg (calculado)</span>
+            <div className={`${inputClass()} bg-surface-alt text-ink-soft flex items-center`}>
               {computedKg.toFixed(4)}
             </div>
-            <p className="text-xs text-zinc-400">Automático: caixas × peso fixo do produto</p>
+            <p className="text-xs text-ink-soft/70">Automático: caixas × peso fixo do produto</p>
           </div>
         ) : (
           <FormField label="Kg" hint="Peso variável — informe manualmente">

@@ -35,13 +35,13 @@ export default function ChangePasswordForm() {
       </FormField>
 
       {state.error && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{state.error}</p>
+        <p className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-lg px-4 py-3">{state.error}</p>
       )}
 
       <button
         type="submit"
         disabled={pending}
-        className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
+        className="w-full bg-accent hover:bg-accent-hover disabled:opacity-50 text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2"
       >
         <Lock size={15} />
         {pending ? "Salvando..." : "Salvar nova senha"}

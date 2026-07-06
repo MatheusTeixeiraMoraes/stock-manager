@@ -79,32 +79,32 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-canvas px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center">
-          <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-200">
+          <div className="w-12 h-12 rounded-lg bg-accent flex items-center justify-center mx-auto mb-4">
             <Lock size={20} className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Defina sua nova senha</h1>
+          <h1 className="text-xl font-bold text-ink">Defina sua nova senha</h1>
           {!invalid && (
-            <p className="text-sm text-slate-500 mt-2">
+            <p className="text-sm text-ink-soft mt-2">
               Escolha uma nova senha para acessar o sistema.
             </p>
           )}
         </div>
 
-        <div className="bg-white rounded-2xl border border-zinc-200 shadow-sm p-8">
+        <div className="bg-surface rounded-xl border border-line shadow-sm p-8">
           {invalid ? (
             <div className="space-y-4 text-center">
-              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+              <p className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-lg px-4 py-3">
                 Este link é inválido ou expirou. Peça um novo link em &quot;Esqueceu a senha?&quot; na tela de login.
               </p>
-              <a href="/forgot-password" className="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+              <a href="/forgot-password" className="text-sm font-medium text-accent hover:text-accent-hover transition-colors">
                 Pedir novo link
               </a>
             </div>
           ) : !ready ? (
-            <p className="text-sm text-slate-500 text-center py-4">Validando link de redefinição...</p>
+            <p className="text-sm text-ink-soft text-center py-4">Validando link de redefinição...</p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <FormField label="Nova senha">
@@ -132,13 +132,13 @@ export default function ResetPasswordPage() {
               </FormField>
 
               {error && (
-                <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>
+                <p className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-lg px-4 py-3">{error}</p>
               )}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-accent hover:bg-accent-hover disabled:opacity-50 text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2"
               >
                 <Lock size={15} />
                 {loading ? "Salvando..." : "Salvar nova senha"}

@@ -39,26 +39,26 @@ export default async function StockEntryPage() {
       <div>
         <Link
           href="/movements"
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-700 transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-soft/70 hover:text-ink transition-colors mb-4"
         >
           <ArrowLeft size={13} />
           Histórico
         </Link>
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-            <ArrowDownCircle size={18} className="text-emerald-600" />
+          <div className="w-9 h-9 rounded-lg bg-moss-soft flex items-center justify-center">
+            <ArrowDownCircle size={18} className="text-moss-ink" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-zinc-900">Entrada de estoque</h2>
-            <p className="text-xs text-zinc-500 mt-0.5">Registre a chegada de produtos em um lote</p>
+            <h2 className="text-lg font-bold text-ink">Entrada de estoque</h2>
+            <p className="text-xs text-ink-soft mt-0.5">Registre a chegada de produtos em um lote</p>
           </div>
         </div>
       </div>
 
       {/* Form */}
-      <div className="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
-          <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Dados da entrada</p>
+      <div className="bg-surface rounded-xl border border-line shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-line bg-surface-alt">
+          <p className="text-xs font-semibold text-ink-soft uppercase tracking-wider">Dados da entrada</p>
         </div>
         <form action={registerEntry} className="px-6 py-5 space-y-4">
           <EntryFields lots={lots} />
@@ -74,7 +74,7 @@ export default async function StockEntryPage() {
           <div className="pt-1">
             <button
               type="submit"
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl py-3 text-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-moss hover:bg-moss-hover text-white font-semibold rounded-lg py-3 text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowDownCircle size={15} />
               Registrar entrada

@@ -47,14 +47,14 @@ export default async function LotDetailPage({
     <div className="space-y-4 max-w-3xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link href="/lots" className="text-sm text-slate-500 hover:text-slate-800">← Lotes</Link>
-          <h2 className="text-xl font-semibold text-slate-900">Lote {lot.lot_number}</h2>
+          <Link href="/lots" className="text-sm text-ink-soft hover:text-ink">← Lotes</Link>
+          <h2 className="text-xl font-semibold text-ink">Lote {lot.lot_number}</h2>
         </div>
         {role === "admin" && (
           <div className="flex items-center gap-2">
             <Link
               href={`/lots/${lot.lot_id}/edit`}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-indigo-600 border border-zinc-200 hover:border-indigo-300 rounded-lg px-3 py-1.5 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-soft hover:text-accent border border-line hover:border-accent/40 rounded-lg px-3 py-1.5 transition-colors"
             >
               <Pencil size={12} />
               Editar
@@ -66,7 +66,7 @@ export default async function LotDetailPage({
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Card className="p-4">
-          <p className="text-xs text-slate-500 mb-1">Tipo</p>
+          <p className="text-xs text-ink-soft mb-1">Tipo</p>
           <LotTypeBadge type={lot.lot_type} />
         </Card>
         {[
@@ -79,31 +79,31 @@ export default async function LotDetailPage({
           { label: "Validade", value: lot.expiry_date ?? "—" },
         ].map((item) => (
           <Card key={item.label} className="p-4">
-            <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-            <p className="text-sm font-semibold text-slate-800">{item.value}</p>
+            <p className="text-xs text-ink-soft mb-1">{item.label}</p>
+            <p className="text-sm font-semibold text-ink">{item.value}</p>
           </Card>
         ))}
       </div>
 
       <Card>
-        <div className="px-5 py-4 border-b border-slate-200">
-          <h3 className="text-sm font-semibold text-slate-700">Histórico de movimentações</h3>
+        <div className="px-5 py-4 border-b border-line">
+          <h3 className="text-sm font-semibold text-ink">Histórico de movimentações</h3>
         </div>
         {movements.length === 0 ? (
-          <p className="px-5 py-6 text-sm text-slate-400 text-center">Nenhuma movimentação registrada.</p>
+          <p className="px-5 py-6 text-sm text-ink-soft/70 text-center">Nenhuma movimentação registrada.</p>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-100">
-                <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Tipo</th>
-                <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Cxs</th>
-                <th className="px-5 py-2 text-right text-xs font-semibold text-slate-500 uppercase">Kg</th>
-                <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Data</th>
-                <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Usuário</th>
-                <th className="px-5 py-2 text-left text-xs font-semibold text-slate-500 uppercase">Motivo</th>
+              <tr className="border-b border-line">
+                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Tipo</th>
+                <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Cxs</th>
+                <th className="px-5 py-2 text-right text-xs font-semibold text-ink-soft uppercase">Kg</th>
+                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Data</th>
+                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Usuário</th>
+                <th className="px-5 py-2 text-left text-xs font-semibold text-ink-soft uppercase">Motivo</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-line">
               {movements.map((m) => (
                 <tr key={m.id}>
                   <td className="px-5 py-3">
@@ -115,7 +115,7 @@ export default async function LotDetailPage({
                   <td className="px-5 py-3 text-right">{Number(m.kg).toFixed(2)}</td>
                   <td className="px-5 py-3">{m.movement_date}</td>
                   <td className="px-5 py-3">{m.registered_by_name}</td>
-                  <td className="px-5 py-3 text-slate-400">{m.reason ?? "—"}</td>
+                  <td className="px-5 py-3 text-ink-soft/70">{m.reason ?? "—"}</td>
                 </tr>
               ))}
             </tbody>

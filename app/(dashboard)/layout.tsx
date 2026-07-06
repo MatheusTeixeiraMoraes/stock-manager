@@ -23,7 +23,7 @@ export default async function DashboardLayout({
       <Sidebar role={role} />
       <div className="flex flex-col flex-1 overflow-hidden">
         <TopBar title="Stock Manager" userName={userName} />
-        <main className="flex-1 overflow-y-auto bg-slate-50 px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-canvas px-8 py-8">{children}</main>
       </div>
     </div>
   );

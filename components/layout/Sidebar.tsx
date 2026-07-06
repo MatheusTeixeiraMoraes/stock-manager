@@ -50,8 +50,8 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
       href={item.href}
       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
         active
-          ? "bg-indigo-600 text-white shadow-sm shadow-indigo-900/40"
-          : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+          ? "bg-accent text-white shadow-sm"
+          : "text-ink-soft hover:bg-surface hover:text-ink"
       }`}
     >
       <Icon size={16} strokeWidth={active ? 2.5 : 2} />
@@ -76,7 +76,7 @@ function NavSection({
 
   return (
     <div className="space-y-0.5">
-      <p className="px-3 py-1.5 text-[11px] font-semibold text-slate-600 uppercase tracking-widest">
+      <p className="px-3 py-1.5 text-[11px] font-semibold text-ink-soft/70 uppercase tracking-widest">
         {title}
       </p>
       {visible.map((item) => {
@@ -93,17 +93,17 @@ export default function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-slate-900 flex flex-col">
+    <aside className="w-64 flex-shrink-0 bg-sidebar border-r border-line flex flex-col">
       {/* Logo */}
-      <div className="px-5 h-16 flex items-center gap-3 border-b border-slate-800">
-        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-900/50">
+      <div className="px-5 h-16 flex items-center gap-3 border-b border-line">
+        <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center shadow-sm">
           <Package size={16} className="text-white" strokeWidth={2.5} />
         </div>
         <div>
-          <span className="font-bold text-white text-sm tracking-tight leading-none block">
+          <span className="font-bold text-ink text-sm tracking-tight leading-none block">
             Stock Manager
           </span>
-          <span className="text-slate-500 text-[11px] mt-0.5 block">Gestão de estoque</span>
+          <span className="text-ink-soft text-[11px] mt-0.5 block">Gestão de estoque</span>
         </div>
       </div>
 
@@ -117,18 +117,18 @@ export default function Sidebar({ role }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="px-3 py-4 border-t border-slate-800">
-        <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-slate-800">
-          <div className="w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+      <div className="px-3 py-4 border-t border-line">
+        <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface">
+          <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
             <span className="text-xs font-bold text-white">
               {role === "admin" ? "A" : "O"}
             </span>
           </div>
           <div className="min-w-0">
-            <span className="text-xs font-semibold text-slate-200 block">
+            <span className="text-xs font-semibold text-ink block">
               {role === "admin" ? "Administrador" : "Operador"}
             </span>
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[11px] text-ink-soft">
               {role === "admin" ? "Acesso total" : "Acesso restrito"}
             </span>
           </div>
