@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import { deleteLot } from "@/app/(dashboard)/lots/actions";
 
 export default function DeleteLotButton({ lotId, lotNumber }: { lotId: string; lotNumber: string }) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -15,6 +17,8 @@ export default function DeleteLotButton({ lotId, lotNumber }: { lotId: string; l
     startTransition(async () => {
       try {
         await deleteLot(lotId);
+        router.push("/lots");
+        router.refresh();
       } catch (e) {
         setError(e instanceof Error ? e.message : "Erro ao excluir lote.");
       }

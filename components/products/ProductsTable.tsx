@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, Palette, Pencil } from "lucide-react";
+import DeleteProductButton from "@/components/products/DeleteProductButton";
 import type { Product } from "@/types/database";
 
 export default function ProductsTable({ products }: { products: Product[] }) {
@@ -63,10 +64,13 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                     </span>
                   </td>
                   <td className="px-5 py-4 text-right">
-                    <Link href={`/products/${p.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-ink-soft/70 hover:text-accent transition-colors">
-                      <Pencil size={12} />
-                      Editar
-                    </Link>
+                    <div className="flex items-center justify-end gap-3">
+                      <Link href={`/products/${p.id}`} className="inline-flex items-center gap-1 text-xs font-medium text-ink-soft/70 hover:text-accent transition-colors">
+                        <Pencil size={12} />
+                        Editar
+                      </Link>
+                      <DeleteProductButton productId={p.id} productName={p.name} />
+                    </div>
                   </td>
                 </tr>
               ))}

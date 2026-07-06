@@ -102,6 +102,8 @@ export async function deleteLot(id: string) {
     throw new Error(error.message);
   }
 
+  // Sem redirect() aqui: essa action é chamada via clique (não <form>),
+  // então o redirect seria capturado pelo try/catch do componente cliente
+  // em vez de navegar. A navegação fica por conta do DeleteLotButton.
   revalidatePath("/lots");
-  redirect("/lots");
 }

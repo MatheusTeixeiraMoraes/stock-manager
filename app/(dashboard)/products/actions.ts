@@ -20,6 +20,22 @@ export async function createProduct(formData: FormData) {
   redirect("/products");
 }
 
+export async function deleteProduct(id: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("products").delete().eq("id", id);
+
+  if (error) {
+    if (error.code === "23503") {
+      throw new Error("Não é possível excluir: este produto tem lotes cadastrados.");
+    }
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/products");
+}
+
 export async function updateProduct(id: string, formData: FormData) {
   await requireAdmin();
   const supabase = await createClient();
