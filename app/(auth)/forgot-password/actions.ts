@@ -18,7 +18,7 @@ export async function requestPasswordReset(
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteUrl}/auth/confirm?next=/change-password`,
+    redirectTo: `${siteUrl}/reset-password`,
   });
 
   // Não revela se o e-mail existe ou não no sistema (evita enumeração de contas)
